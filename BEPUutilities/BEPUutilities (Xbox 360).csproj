@@ -92,7 +92,6 @@
     <Compile Include="Threading\IParallelLooper.cs" />
     <Compile Include="Threading\ParallelLooper.cs" />
     <Compile Include="Threading\ParallelLoopWorker.cs" />
-    <Compile Include="Threading\SpecializedThreadManager.cs" />
     <Compile Include="Toolbox.cs" />
     <Compile Include="TriangleSidedness.cs" />
     <Compile Include="Vector2.cs" />
