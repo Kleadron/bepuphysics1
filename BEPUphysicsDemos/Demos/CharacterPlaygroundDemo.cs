@@ -270,7 +270,7 @@ namespace BEPUphysicsDemos.Demos
         public override void DrawUI()
         {
 #if XBOX360
-            Game.DataTextDrawer.Draw("Press \"A\" to toggle the character.", new Microsoft.Xna.Framework.(50, 50));
+            Game.DataTextDrawer.Draw("Press \"A\" to toggle the character.", new Microsoft.Xna.Framework.Vector2(50, 50));
 #else
             Game.DataTextDrawer.Draw("Press \"C\" to toggle the character.", new Microsoft.Xna.Framework.Vector2(50, 50));
 #endif
