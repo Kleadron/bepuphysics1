@@ -4,6 +4,7 @@ using System.Diagnostics;
 using BEPUphysics;
 using BEPUutilities;
 using BEPUutilities.Threading;
+using System.Threading;
 
 namespace BEPUphysicsDemos.Demos
 {
@@ -24,10 +25,10 @@ namespace BEPUphysicsDemos.Demos
             //This section lets the engine know that it can make use of multithreaded systems
             //by adding threads to its thread pool.
 #if XBOX360
-            parallelLooper.AddThread(delegate { Thread.CurrentThread.SetProcessorAffinity(new[] { 1 }); });
-            parallelLooper.AddThread(delegate { Thread.CurrentThread.SetProcessorAffinity(new[] { 3 }); });
-            parallelLooper.AddThread(delegate { Thread.CurrentThread.SetProcessorAffinity(new[] { 4 }); });
-            parallelLooper.AddThread(delegate { Thread.CurrentThread.SetProcessorAffinity(new[] { 5 }); });
+            parallelLooper.AddThread(delegate { Thread.CurrentThread.SetProcessorAffinity(1); });
+            parallelLooper.AddThread(delegate { Thread.CurrentThread.SetProcessorAffinity(3); });
+            parallelLooper.AddThread(delegate { Thread.CurrentThread.SetProcessorAffinity(4); });
+            parallelLooper.AddThread(delegate { Thread.CurrentThread.SetProcessorAffinity(5); });
 
 #else
             if (Environment.ProcessorCount > 1)
