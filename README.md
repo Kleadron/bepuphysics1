@@ -1,4 +1,12 @@
-# BEPUphysics v1
+# BEPUphysics v1 for XNA 4.0
+This is a backport of BEPUphysics 1.5.2 to XNA 4.0, mainly intended for use with Xbox 360.
+
+The important changes include threading differences as the `[ThreadStatic]` attribute is broken on the .net compact framework (the version of .net used on xbox).
+My fix for this might not be as performant as the original version. Not sure how it compares to versions before xbox support was dropped originally, but it works pretty well as-is.
+
+I'm not a genius about physics engines, so I don't plan on maintaining this fork as a continuation of the original. I just hope someone finds this useful.
+
+## BEPUphysics v1
 
 *Looking for the newer bepuphysics v2? Head over to its [repository](https://github.com/bepu/bepuphysics2).*
 
