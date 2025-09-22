@@ -29,6 +29,7 @@
     <DefineConstants>TRACE;XBOX;XBOX360</DefineConstants>
     <XnaCompressContent>true</XnaCompressContent>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Xbox 360\Release\BEPUphysicsDrawer.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Xbox 360' ">
     <OutputPath>bin\Xbox 360\Debug</OutputPath>
@@ -43,6 +44,7 @@
     <XnaCompressContent>true</XnaCompressContent>
     <LangVersion>default</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Xbox 360\Debug\BEPUphysicsDrawer.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>

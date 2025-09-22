@@ -29,6 +29,7 @@
     <DefineConstants>TRACE;XBOX;XBOX360</DefineConstants>
     <XnaCompressContent>true</XnaCompressContent>
     <LangVersion>default</LangVersion>
+    <DocumentationFile>bin\Xbox 360\Release\BEPUutilities.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Xbox 360' ">
     <OutputPath>bin\Xbox 360\Debug</OutputPath>
@@ -42,6 +43,7 @@
     <DefineConstants>DEBUG;TRACE;XBOX;XBOX360</DefineConstants>
     <XnaCompressContent>true</XnaCompressContent>
     <LangVersion>default</LangVersion>
+    <DocumentationFile>bin\Xbox 360\Debug\BEPUutilities.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>

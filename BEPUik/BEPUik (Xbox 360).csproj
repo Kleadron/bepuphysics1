@@ -28,6 +28,7 @@
     <Optimize>true</Optimize>
     <DefineConstants>TRACE;XBOX;XBOX360</DefineConstants>
     <XnaCompressContent>true</XnaCompressContent>
+    <DocumentationFile>bin\Xbox 360\Release\BEPUik.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Xbox 360' ">
     <OutputPath>bin\Xbox 360\Debug</OutputPath>
@@ -41,6 +42,7 @@
     <DefineConstants>DEBUG;TRACE;XBOX;XBOX360</DefineConstants>
     <XnaCompressContent>true</XnaCompressContent>
     <LangVersion>default</LangVersion>
+    <DocumentationFile>bin\Xbox 360\Debug\BEPUik.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
