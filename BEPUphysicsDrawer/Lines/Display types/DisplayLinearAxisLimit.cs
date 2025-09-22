@@ -1,6 +1,6 @@
 ﻿using BEPUphysics.Constraints.TwoEntity.JointLimits;
 using Microsoft.Xna.Framework;
-using ConversionHelper;
+
 
 namespace BEPUphysicsDrawer.Lines
 {
@@ -37,18 +37,18 @@ namespace BEPUphysicsDrawer.Lines
         public override void Update()
         {
             //Move lines around
-            aToConnection.PositionA = MathConverter.Convert(LineObject.ConnectionA.Position);
-            aToConnection.PositionB = MathConverter.Convert(LineObject.AnchorA);
+            aToConnection.PositionA = LineObject.ConnectionA.Position;
+            aToConnection.PositionB = LineObject.AnchorA;
 
-            bToConnection.PositionA = MathConverter.Convert(LineObject.ConnectionB.Position);
-            bToConnection.PositionB = MathConverter.Convert(LineObject.AnchorB);
+            bToConnection.PositionA = LineObject.ConnectionB.Position;
+            bToConnection.PositionB = LineObject.AnchorB;
 
             error.PositionA = aToConnection.PositionB;
             error.PositionB = bToConnection.PositionB;
 
 
-            axis.PositionA = MathConverter.Convert(LineObject.AnchorA + LineObject.Axis * LineObject.Minimum);
-            axis.PositionB = MathConverter.Convert(LineObject.AnchorA + LineObject.Axis * LineObject.Maximum);
+            axis.PositionA = LineObject.AnchorA + LineObject.Axis * LineObject.Minimum;
+            axis.PositionB = LineObject.AnchorA + LineObject.Axis * LineObject.Maximum;
         }
     }
 }

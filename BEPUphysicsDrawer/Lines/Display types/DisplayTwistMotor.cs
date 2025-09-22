@@ -1,7 +1,7 @@
 ﻿using BEPUphysics.Constraints.TwoEntity.Joints;
 using BEPUphysics.Constraints.TwoEntity.Motors;
 using Microsoft.Xna.Framework;
-using ConversionHelper;
+
 
 namespace BEPUphysicsDrawer.Lines
 {
@@ -30,11 +30,11 @@ namespace BEPUphysicsDrawer.Lines
         public override void Update()
         {
             //Move lines around
-            axisA.PositionA = MathConverter.Convert(LineObject.ConnectionA.Position);
-            axisA.PositionB = MathConverter.Convert(LineObject.ConnectionA.Position + LineObject.BasisA.PrimaryAxis);
+            axisA.PositionA = LineObject.ConnectionA.Position;
+            axisA.PositionB = LineObject.ConnectionA.Position + LineObject.BasisA.PrimaryAxis;
 
-            axisB.PositionA = MathConverter.Convert(LineObject.ConnectionB.Position);
-            axisB.PositionB = MathConverter.Convert(LineObject.ConnectionB.Position + LineObject.BasisB.PrimaryAxis);
+            axisB.PositionA = LineObject.ConnectionB.Position;
+            axisB.PositionB = LineObject.ConnectionB.Position + LineObject.BasisB.PrimaryAxis;
         }
     }
 }

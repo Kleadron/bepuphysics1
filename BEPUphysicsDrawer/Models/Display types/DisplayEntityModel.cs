@@ -1,8 +1,9 @@
 ﻿
 using BEPUphysics.Entities;
 using BEPUutilities;
-using ConversionHelper;
+
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDrawer.Models
 {
@@ -18,7 +19,7 @@ namespace BEPUphysicsDrawer.Models
         /// <summary>
         /// Bone transformations of meshes in the model.
         /// </summary>
-        private Microsoft.Xna.Framework.Matrix[] transforms;
+        private Matrix[] transforms;
 
         /// <summary>
         /// Constructs a new display model.
@@ -48,7 +49,7 @@ namespace BEPUphysicsDrawer.Models
             set
             {
                 myModel = value;
-                transforms = new Microsoft.Xna.Framework.Matrix[myModel.Bones.Count];
+                transforms = new Matrix[myModel.Bones.Count];
                 for (int i = 0; i < Model.Meshes.Count; i++)
                 {
                     for (int j = 0; j < Model.Meshes[i].Effects.Count; j++)
@@ -125,9 +126,9 @@ namespace BEPUphysicsDrawer.Models
                     var effect = Model.Meshes[i].Effects[j] as BasicEffect;
                     if (effect != null)
                     {
-                        effect.World = transforms[Model.Meshes[i].ParentBone.Index] * MathConverter.Convert(WorldTransform);
-                        effect.View = MathConverter.Convert(viewMatrix);
-                        effect.Projection = MathConverter.Convert(projectionMatrix);
+                        effect.World = transforms[Model.Meshes[i].ParentBone.Index] * WorldTransform;
+                        effect.View = viewMatrix;
+                        effect.Projection = projectionMatrix;
                     }
                 }
                 Model.Meshes[i].Draw();

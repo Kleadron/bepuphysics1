@@ -7,7 +7,7 @@ using BEPUphysics.Constraints.TwoEntity.JointLimits;
 using BEPUphysics.Constraints.TwoEntity.Joints;
 using BEPUphysics.Constraints.TwoEntity.Motors;
 using BEPUutilities.DataStructures;
-using ConversionHelper;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -151,7 +151,7 @@ namespace BEPUphysicsDrawer.Lines
         /// </summary>
         /// <param name="viewMatrix">View matrix to use when rendering the lines.</param>
         /// <param name="projectionMatrix">Projection matrix to use when rendering the lines.</param>
-        public void Draw(BEPUutilities.Matrix viewMatrix, BEPUutilities.Matrix projectionMatrix)
+        public void Draw(Matrix viewMatrix, Matrix projectionMatrix)
         {
             int numElements = firstOpenIndex / 2;
 
@@ -164,8 +164,8 @@ namespace BEPUphysicsDrawer.Lines
                 lineDrawer.LightingEnabled = false;
                 lineDrawer.VertexColorEnabled = true;
                 lineDrawer.World = Matrix.Identity;
-                lineDrawer.View = MathConverter.Convert(viewMatrix);
-                lineDrawer.Projection = MathConverter.Convert(projectionMatrix);
+                lineDrawer.View = viewMatrix;
+                lineDrawer.Projection = projectionMatrix;
 
                 //Draw
 

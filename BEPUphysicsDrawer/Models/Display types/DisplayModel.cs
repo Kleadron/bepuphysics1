@@ -1,6 +1,7 @@
 ﻿using BEPUutilities;
-using ConversionHelper;
+
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDrawer.Models
 {
@@ -92,9 +93,9 @@ namespace BEPUphysicsDrawer.Models
                     var effect = Model.Meshes[i].Effects[j] as BasicEffect;
                     if (effect != null)
                     {
-                        effect.World = transforms[Model.Meshes[i].ParentBone.Index] * MathConverter.Convert(WorldTransform);
-                        effect.View = MathConverter.Convert(viewMatrix);
-                        effect.Projection = MathConverter.Convert(projectionMatrix);
+                        effect.World = transforms[Model.Meshes[i].ParentBone.Index] * WorldTransform;
+                        effect.View = viewMatrix;
+                        effect.Projection = projectionMatrix;
                         effect.AmbientLightColor = Color;
 
                         if (Texture != null)

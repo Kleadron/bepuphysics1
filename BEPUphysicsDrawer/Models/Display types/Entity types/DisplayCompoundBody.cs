@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
-using ConversionHelper;
+using Microsoft.Xna.Framework;
+
 
 namespace BEPUphysicsDrawer.Models
 {
@@ -32,16 +33,16 @@ namespace BEPUphysicsDrawer.Models
                         indices.Add((ushort)(tempIndices[j] + vertices.Count));
                     }
                     var localTransform = child.Entry.LocalTransform;
-                    var localPosition = MathConverter.Convert(child.CollisionInformation.LocalPosition);
-                    var orientation = MathConverter.Convert(localTransform.Orientation);
-                    var position = MathConverter.Convert(localTransform.Position);
+                    var localPosition = child.CollisionInformation.LocalPosition;
+                    var orientation = localTransform.Orientation;
+                    var position = localTransform.Position;
                     for (int j = 0; j < tempVertices.Count; j++)
                     {
                         VertexPositionNormalTexture vertex = tempVertices[j];
-                        Microsoft.Xna.Framework.Vector3.Add(ref vertex.Position, ref localPosition, out vertex.Position);
-                        Microsoft.Xna.Framework.Vector3.Transform(ref vertex.Position, ref orientation, out vertex.Position);
-                        Microsoft.Xna.Framework.Vector3.Add(ref vertex.Position, ref position, out vertex.Position);
-                        Microsoft.Xna.Framework.Vector3.Transform(ref vertex.Normal, ref orientation, out vertex.Normal);
+                        Vector3.Add(ref vertex.Position, ref localPosition, out vertex.Position);
+                        Vector3.Transform(ref vertex.Position, ref orientation, out vertex.Position);
+                        Vector3.Add(ref vertex.Position, ref position, out vertex.Position);
+                        Vector3.Transform(ref vertex.Normal, ref orientation, out vertex.Normal);
                         vertices.Add(vertex);
                     }
 

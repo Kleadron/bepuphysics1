@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BEPUphysics;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using Microsoft.Xna.Framework;
-using ConversionHelper;
+
 
 namespace BEPUphysicsDrawer.Lines
 {
@@ -34,17 +34,17 @@ namespace BEPUphysicsDrawer.Lines
                         contactCount++;
                         if (information.Contact.PenetrationDepth < 0)
                         {
-                            contactLines.Add(new VertexPositionColor(MathConverter.Convert(information.Contact.Position), Color.Blue));
-                            contactLines.Add(new VertexPositionColor(MathConverter.Convert(information.Contact.Position + information.Contact.Normal * information.Contact.PenetrationDepth), Color.White));
-                            contactLines.Add(new VertexPositionColor(MathConverter.Convert(information.Contact.Position), Color.White));
-                            contactLines.Add(new VertexPositionColor(MathConverter.Convert(information.Contact.Position + information.Contact.Normal * .3f), Color.White));
+                            contactLines.Add(new VertexPositionColor(information.Contact.Position, Color.Blue));
+                            contactLines.Add(new VertexPositionColor(information.Contact.Position + information.Contact.Normal * information.Contact.PenetrationDepth, Color.White));
+                            contactLines.Add(new VertexPositionColor(information.Contact.Position, Color.White));
+                            contactLines.Add(new VertexPositionColor(information.Contact.Position + information.Contact.Normal * .3f, Color.White));
                         }
                         else
                         {
-                            contactLines.Add(new VertexPositionColor(MathConverter.Convert(information.Contact.Position), Color.White));
-                            contactLines.Add(new VertexPositionColor(MathConverter.Convert(information.Contact.Position + information.Contact.Normal * information.Contact.PenetrationDepth), Color.Red));
-                            contactLines.Add(new VertexPositionColor(MathConverter.Convert(information.Contact.Position + information.Contact.Normal * information.Contact.PenetrationDepth), Color.White));
-                            contactLines.Add(new VertexPositionColor(MathConverter.Convert(information.Contact.Position + information.Contact.Normal * (information.Contact.PenetrationDepth + .3f)), Color.White));
+                            contactLines.Add(new VertexPositionColor(information.Contact.Position, Color.White));
+                            contactLines.Add(new VertexPositionColor(information.Contact.Position + information.Contact.Normal * information.Contact.PenetrationDepth, Color.Red));
+                            contactLines.Add(new VertexPositionColor(information.Contact.Position + information.Contact.Normal * information.Contact.PenetrationDepth, Color.White));
+                            contactLines.Add(new VertexPositionColor(information.Contact.Position + information.Contact.Normal * (information.Contact.PenetrationDepth + .3f), Color.White));
                         }
 
                     }

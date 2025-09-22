@@ -3,7 +3,7 @@ using BEPUphysics.BroadPhaseEntries;
 using BEPUutilities;
 using Microsoft.Xna.Framework.Graphics;
 using BEPUphysics.CollisionShapes;
-using ConversionHelper;
+
 using System;
 using Matrix = Microsoft.Xna.Framework.Matrix;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -44,7 +44,7 @@ namespace BEPUphysicsDrawer.Models
 
             var normalTransform = Matrix3x3.AdjugateTranspose(DisplayedObject.WorldTransform.LinearTransform);
 
-            var reverseWinding = BEPUutilities.Vector3.Dot(normalTransform.Up, DisplayedObject.WorldTransform.LinearTransform.Up) < 0;
+            var reverseWinding = Vector3.Dot(normalTransform.Up, DisplayedObject.WorldTransform.LinearTransform.Up) < 0;
 
 
             for (int j = 0; j < numRows; j++)
@@ -52,13 +52,13 @@ namespace BEPUphysicsDrawer.Models
                 for (int i = 0; i < numColumns; i++)
                 {
                     VertexPositionNormalTexture v;
-                    BEPUutilities.Vector3 position, n;
+                    Vector3 position, n;
                     DisplayedObject.GetPosition(i, j, out position);
                     shape.GetLocalNormal(i, j, out n);
                     Matrix3x3.Transform(ref n, ref normalTransform, out n);
                     n.Normalize();
-                    MathConverter.Convert(ref position, out v.Position);
-                    MathConverter.Convert(ref n, out v.Normal);
+                    v.Position = position;
+                    v.Normal = n;
 
 
                     if (reverseWinding)
