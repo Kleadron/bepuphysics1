@@ -19,7 +19,7 @@ namespace BEPUphysicsDrawer.Models
         /// <summary>
         /// Maximum number of primitives that can be batched together in a single draw call.
         /// </summary>
-        public const int MaximumPrimitiveCountPerBatch = 65535;
+        public const int MaximumPrimitiveCountPerBatch = 65536;
         public const int MaximumIndexCount = MaximumPrimitiveCountPerBatch * 3;
 
         private readonly GraphicsDevice graphicsDevice;
@@ -214,8 +214,7 @@ namespace BEPUphysicsDrawer.Models
                 textureIndicesParameter.SetValue(textureIndices);
                 pass.Apply();
 
-                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList,
-                                                     0, 0, indexCount / 3);
+                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexBuffer.VertexCount, 0, indexCount / 3);
             }
         }
 
