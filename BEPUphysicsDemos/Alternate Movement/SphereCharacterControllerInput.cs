@@ -2,6 +2,7 @@ using BEPUphysics;
 using BEPUphysics.Character;
 using BEPUutilities;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace BEPUphysicsDemos.AlternateMovement
 {
@@ -99,10 +100,10 @@ namespace BEPUphysicsDemos.AlternateMovement
 #if XBOX360
                 totalMovement += new Vector2(gamePadInput.ThumbSticks.Left.X, gamePadInput.ThumbSticks.Left.Y);
 
-                CharacterController.HorizontalMotionConstraint.SpeedScale = Math.Min(totalMovement.Length(), 1); //Don't trust the game pad to output perfectly normalized values.
+                //CharacterController.HorizontalMotionConstraint.SpeedScale = Math.Min(totalMovement.Length(), 1); //Don't trust the game pad to output perfectly normalized values.
                 CharacterController.HorizontalMotionConstraint.MovementDirection = totalMovement;
                 
-                CharacterController.StanceManager.DesiredStance = gamePadInput.IsButtonDown(Buttons.RightStick) ? Stance.Crouching : Stance.Standing;
+                //CharacterController.StanceManager.DesiredStance = gamePadInput.IsButtonDown(Buttons.RightStick) ? Stance.Crouching : Stance.Standing;
 
                 //Jumping
                 if (previousGamePadInput.IsButtonUp(Buttons.LeftStick) && gamePadInput.IsButtonDown(Buttons.LeftStick))
