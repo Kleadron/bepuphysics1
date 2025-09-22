@@ -13,7 +13,8 @@ namespace BEPUutilities.ResourceManagement
     public static class BufferPools<T>
     {
         /// <summary>
-        /// Gets a buffer pool for this type which provides thread safe resource acquisition and return.</summary>
+        /// Gets a buffer pool for this type which provides thread safe resource acquisition and return.
+        /// </summary>
         public static LockingBufferPool<T> Locking { get; private set; }
 
         // NOTE: THIS IS BROKEN ON XBOX :(
@@ -23,16 +24,16 @@ namespace BEPUutilities.ResourceManagement
         /// <summary>
         /// Gets the pool associated with this thread.
         /// </summary>
-        public static BufferPool<T> Thread
-        {
-            // ThreadStatic doesn't work on Xbox, so I'm returning a reference to the Locking pool instead.
-            //get { return threadPool ?? (threadPool = new BufferPool<T>()); }
-            get { return Locking; }
-        }
+        public static LockingBufferPool<T> Thread { get; private set; }
+        //public static BufferPool<T> Thread
+        //{
+        //    get { return threadPool ?? (threadPool = new BufferPool<T>()); }
+        //}
 
         static BufferPools()
         {
             Locking = new LockingBufferPool<T>();
+            Thread = Locking;
         }
     }
 }
