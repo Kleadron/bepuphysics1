@@ -26,12 +26,12 @@ namespace BEPUphysicsDemos
             //Only move around if the camera has control over its own position.
             float distance = Speed * dt;
 #if XBOX360
-            MoveForward(Game.GamePadInput.ThumbSticks.Left.Y * distance);
-            MoveRight(gamePadInput.ThumbSticks.Left.X * distance);
+            Camera.MoveForward(Game.GamePadInput.ThumbSticks.Left.Y * distance);
+            Camera.MoveRight(Game.GamePadInput.ThumbSticks.Left.X * distance);
             if (Game.GamePadInput.IsButtonDown(Buttons.LeftStick))
-                MoveUp(distance);
+                Camera.MoveUp(distance);
             if (Game.GamePadInput.IsButtonDown(Buttons.RightStick))
-                MoveUp(-distance);
+                Camera.MoveUp(-distance);
 #endif
 
             if (Game.KeyboardInput.IsKeyDown(Keys.E))
