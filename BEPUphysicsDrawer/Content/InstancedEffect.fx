@@ -58,7 +58,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     return output;
 }
 
-float3 PixelShaderFunction(VertexShaderOutput input) : COLOR0
+float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
 
 	float halfPixel = .5f / NUM_TEXTURES;
@@ -72,14 +72,14 @@ float3 PixelShaderFunction(VertexShaderOutput input) : COLOR0
   
     
 	surfaceColor =  AmbientAmount * surfaceColor + surfaceColor * (diffuseAmount1 * DiffuseColor1 + diffuseAmount2 * DiffuseColor2);
-    return surfaceColor;
+    return float4(surfaceColor, 1);
 }
 
 technique Technique1
 {
     pass Pass1
     {
-        VertexShader = compile vs_4_0 VertexShaderFunction();
-        PixelShader = compile ps_4_0 PixelShaderFunction();
+        VertexShader = compile vs_2_0 VertexShaderFunction();
+        PixelShader = compile ps_2_0 PixelShaderFunction();
     }
 }
