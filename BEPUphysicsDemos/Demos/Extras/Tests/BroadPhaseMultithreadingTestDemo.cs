@@ -1,4 +1,5 @@
-﻿using BEPUphysics.BroadPhaseEntries;
+﻿#if WINDOWS
+using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.Entities;
 using BEPUphysics.Entities.Prefabs;
 using BEPUutilities;
@@ -398,3 +399,4 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
 
     }
 }
+#endif

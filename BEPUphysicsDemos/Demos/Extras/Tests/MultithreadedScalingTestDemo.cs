@@ -1,4 +1,5 @@
-﻿using BEPUphysics;
+﻿#if WINDOWS
+using BEPUphysics;
 using BEPUphysics.Entities;
 using BEPUphysics.Entities.Prefabs;
 using BEPUutilities;
@@ -286,3 +287,4 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
 
     }
 }
+#endif
