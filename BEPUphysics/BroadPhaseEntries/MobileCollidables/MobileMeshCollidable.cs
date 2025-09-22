@@ -200,7 +200,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
             var transform = new AffineTransform {Translation = worldTransform.Position};
             Matrix3x3.CreateFromQuaternion(ref worldTransform.Orientation, out transform.LinearTransform);
             castShape.GetSweptLocalBoundingBox(ref startingTransform, ref transform, ref sweep, out boundingBox);
-            var tri = PhysicsThreadResources.GetTriangle();
+            var tri = PhysicsResources.GetTriangle();
             var hitElements = CommonResources.GetIntList();
             if (this.Shape.TriangleMesh.Tree.GetOverlaps(boundingBox, hitElements))
             {
@@ -235,11 +235,11 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                     }
                 }
                 tri.MaximumRadius = 0;
-                PhysicsThreadResources.GiveBack(tri);
+                PhysicsResources.GiveBack(tri);
                 CommonResources.GiveBack(hitElements);
                 return hit.T != float.MaxValue;
             }
-            PhysicsThreadResources.GiveBack(tri);
+            PhysicsResources.GiveBack(tri);
             CommonResources.GiveBack(hitElements);
             return false;
         }

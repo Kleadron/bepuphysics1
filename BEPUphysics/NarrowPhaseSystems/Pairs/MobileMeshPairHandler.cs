@@ -169,7 +169,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
                     TriangleSidedness sidedness = mobileMesh.Shape.Sidedness;
                     Matrix3x3 orientation;
                     Matrix3x3.CreateFromQuaternion(ref mobileMesh.worldTransform.Orientation, out orientation);
-                    var triangle = PhysicsThreadResources.GetTriangle();
+                    var triangle = PhysicsResources.GetTriangle();
                     triangle.collisionMargin = 0;
                     //Spherecast against all triangles to find the earliest time.
                     for (int i = 0; i < MeshManifold.overlappedTriangles.Count; i++)
@@ -216,7 +216,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
                             }
                         }
                     }
-                    PhysicsThreadResources.GiveBack(triangle);
+                    PhysicsResources.GiveBack(triangle);
                 }
 
 

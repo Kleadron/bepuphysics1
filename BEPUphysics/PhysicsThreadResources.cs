@@ -1,4 +1,7 @@
-﻿using System;
+﻿// [ThreadStatic] is broken in .net compact framework (Xbox 360)
+// https://www.gavpugh.com/2010/11/26/xnac-%E2%80%93-threadstatic-attribute-is-broken-on-xbox-360/
+#if 0
+using System;
 using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.CollisionTests.Manifolds;
@@ -248,3 +251,4 @@ namespace BEPUphysics
         }
     }
 }
+#endif

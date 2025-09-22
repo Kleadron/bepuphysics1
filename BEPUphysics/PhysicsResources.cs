@@ -140,8 +140,63 @@ namespace BEPUphysics
             list.Clear();
             SubPoolEntityRawList.GiveBack(list);
         }
-        
-      
+
+        /// <summary>
+        /// Retrieves a Triangle shape from the resource pool.
+        /// </summary>
+        /// <param name="v1">Position of the first vertex.</param>
+        /// <param name="v2">Position of the second vertex.</param>
+        /// <param name="v3">Position of the third vertex.</param>
+        /// <returns>Initialized TriangleShape.</returns>
+        public static TriangleShape GetTriangle(ref Vector3 v1, ref Vector3 v2, ref Vector3 v3)
+        {
+            TriangleShape toReturn = SubPoolTriangleShape.Take();
+            toReturn.vA = v1;
+            toReturn.vB = v2;
+            toReturn.vC = v3;
+            return toReturn;
+        }
+
+        /// <summary>
+        /// Retrieves a Triangle shape from the resource pool.
+        /// </summary>
+        /// <returns>Initialized TriangleShape.</returns>
+        public static TriangleShape GetTriangle()
+        {
+            return SubPoolTriangleShape.Take();
+        }
+
+        /// <summary>
+        /// Returns a resource to the pool.
+        /// </summary>
+        /// <param name="triangle">Triangle to return.</param>
+        public static void GiveBack(TriangleShape triangle)
+        {
+            triangle.collisionMargin = 0;
+            triangle.sidedness = TriangleSidedness.DoubleSided;
+            SubPoolTriangleShape.GiveBack(triangle);
+        }
+
+
+        /// <summary>
+        /// Retrieves a TriangleCollidable from the resource pool.
+        /// </summary>
+        /// <param name="a">First vertex in the triangle.</param>
+        /// <param name="b">Second vertex in the triangle.</param>
+        /// <param name="c">Third vertex in the triangle.</param>
+        /// <returns>Initialized TriangleCollidable.</returns>
+        public static TriangleCollidable GetTriangleCollidable(ref Vector3 a, ref Vector3 b, ref Vector3 c)
+        {
+            var tri = SubPoolTriangleCollidables.Take();
+            var shape = tri.Shape;
+            shape.vA = a;
+            shape.vB = b;
+            shape.vC = c;
+            var identity = RigidTransform.Identity;
+            tri.UpdateBoundingBoxForTransform(ref identity);
+            return tri;
+
+        }
 
         /// <summary>
         /// Retrieves a TriangleCollidable from the resource pool.
