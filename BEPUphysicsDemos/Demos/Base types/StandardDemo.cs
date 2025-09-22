@@ -180,7 +180,7 @@ namespace BEPUphysicsDemos.Demos
                 if (!vehicle.IsActive)
                 {
                     character.Deactivate();
-                    vehicle.Activate();
+                    vehicle.Activate(Game.Camera.Position);
                 }
                 else
                     vehicle.Deactivate();
