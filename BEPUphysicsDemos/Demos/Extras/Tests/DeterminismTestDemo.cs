@@ -71,10 +71,14 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
             space.Add(ground);
             space.ForceUpdater.Gravity = new Vector3(0, -10, 0);
 
-            ModelDataExtractor.GetVerticesAndIndicesFromModel(Game.Content.Load<Model>("playground"), out Vector3[] vertices, out int[] indices);
+            Vector3[] vertices;
+            int[] indices;
+
+            ModelDataExtractor.GetVerticesAndIndicesFromModel(Game.Content.Load<Model>("playground"), out vertices, out indices);
             var mesh = new StaticMesh(vertices, indices, new AffineTransform(new Vector3(50, -20, 0)));
             space.Add(mesh);
-            modelDrawer?.Add(mesh);
+            if (modelDrawer != null)
+                modelDrawer.Add(mesh);
 
             for (int i = 0; i < 100; i++)
             {
@@ -123,7 +127,7 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
             {
                 if(!testSpace0.Entities[i].MotionState.Equals(testSpace1.Entities[i].MotionState))
                 {
-                    Console.WriteLine($"Determinism failed on frame {frameIndex}, entity {i}: {testSpace0.Entities[i].MotionState} vs {testSpace1.Entities[i].MotionState}");
+                    //Console.WriteLine($"Determinism failed on frame {frameIndex}, entity {i}: {testSpace0.Entities[i].MotionState} vs {testSpace1.Entities[i].MotionState}");
                 }
             }
             frameIndex++;

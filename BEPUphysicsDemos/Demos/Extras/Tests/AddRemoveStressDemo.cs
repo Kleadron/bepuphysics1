@@ -114,6 +114,7 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
                 }
             }
 
+#if WINDOWS
             if (Game.MouseInput.MiddleButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed)
             {
                 for (int i = 0; i < Math.Max(1, (int)(addedEntities.Count * 0.02f)); i++)
@@ -125,6 +126,7 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
                         (float)(random.NextDouble() - 0.5f) * length);
                 }
             }
+#endif
             base.Update(dt);
 
 

@@ -5,6 +5,7 @@ using BEPUphysics.Entities.Prefabs;
 using BEPUphysicsDemos.Demos;
 using BEPUutilities;
 using Microsoft.Xna.Framework;
+using BEPUutilities.DataStructures;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {
@@ -90,6 +91,7 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
             const int setSize = 250;
             const int iterationCount = 150000;
             var conflicts = 0;
+            var permutationCount = 0;
             for (int i = 0; i < iterationCount; ++i)
             {
                 var permutedIndices = new int[setSize];
@@ -112,6 +114,10 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
                 {
                     ++conflicts;
                 }
+                else
+                {
+                    permutationCount++;
+                }
                 ++mapper.PermutationIndex;
 
                 if (i % (iterationCount / 100) == 0)
@@ -122,7 +128,7 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
 
             Console.WriteLine("Set size: {0}", setSize);
             Console.WriteLine("Iteration count: {0}", iterationCount);
-            Console.WriteLine("Permutation count: {0}", permutations.Count);
+            Console.WriteLine("Permutation count: {0}", permutationCount);
             Console.WriteLine("Conflict count: {0}", conflicts);
         }
 

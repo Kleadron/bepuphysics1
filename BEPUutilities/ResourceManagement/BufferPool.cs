@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using BEPUutilities.DataStructures;
 
 namespace BEPUutilities.ResourceManagement
 {

@@ -55,7 +55,9 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
                 Space.Update();
             }
 
+#if WINDOWS
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.RealTime;
+#endif
             
             var start = Stopwatch.GetTimestamp();
             for (int i = 0; i < 1000; ++i)
