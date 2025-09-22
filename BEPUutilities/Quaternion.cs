@@ -445,7 +445,8 @@ namespace BEPUutilities
         /// <returns>Negated result.</returns>
         public static Quaternion Negate(Quaternion q)
         {
-            Negate(ref q, out var result);
+            Quaternion result;
+            Negate(ref q, out result);
             return result;
         }
 
@@ -456,7 +457,8 @@ namespace BEPUutilities
         /// <returns>Negated result.</returns>
         public static Quaternion operator -(Quaternion q)
         {
-            Negate(ref q, out var result);
+            Quaternion result;
+            Negate(ref q, out result);
             return result;
         }
 

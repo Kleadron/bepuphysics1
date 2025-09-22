@@ -11,7 +11,7 @@ namespace ConversionHelper
         //Vector2
         public static Vector2 Convert(BEPUutilities.Vector2 bepuVector)
         {
-            Vector2 toReturn;
+            Vector2 toReturn = new Vector2();
             toReturn.X = bepuVector.X;
             toReturn.Y = bepuVector.Y;
             return toReturn;
@@ -19,13 +19,16 @@ namespace ConversionHelper
 
         public static void Convert(ref BEPUutilities.Vector2 bepuVector, out Vector2 xnaVector)
         {
+#if !WINDOWS
+            xnaVector = new Vector2();
+#endif
             xnaVector.X = bepuVector.X;
             xnaVector.Y = bepuVector.Y;
         }
 
         public static BEPUutilities.Vector2 Convert(Vector2 xnaVector)
         {
-            BEPUutilities.Vector2 toReturn;
+            BEPUutilities.Vector2 toReturn = new BEPUutilities.Vector2();
             toReturn.X = xnaVector.X;
             toReturn.Y = xnaVector.Y;
             return toReturn;
@@ -33,6 +36,9 @@ namespace ConversionHelper
 
         public static void Convert(ref Vector2 xnaVector, out BEPUutilities.Vector2 bepuVector)
         {
+#if !WINDOWS
+            bepuVector = new BEPUutilities.Vector2();
+#endif
             bepuVector.X = xnaVector.X;
             bepuVector.Y = xnaVector.Y;
         }
@@ -40,7 +46,7 @@ namespace ConversionHelper
         //Vector3
         public static Vector3 Convert(BEPUutilities.Vector3 bepuVector)
         {
-            Vector3 toReturn;
+            Vector3 toReturn = new Vector3();
             toReturn.X = bepuVector.X;
             toReturn.Y = bepuVector.Y;
             toReturn.Z = bepuVector.Z;
@@ -49,6 +55,9 @@ namespace ConversionHelper
 
         public static void Convert(ref BEPUutilities.Vector3 bepuVector, out Vector3 xnaVector)
         {
+#if !WINDOWS
+            xnaVector = new Vector3();
+#endif
             xnaVector.X = bepuVector.X;
             xnaVector.Y = bepuVector.Y;
             xnaVector.Z = bepuVector.Z;
@@ -56,7 +65,7 @@ namespace ConversionHelper
 
         public static BEPUutilities.Vector3 Convert(Vector3 xnaVector)
         {
-            BEPUutilities.Vector3 toReturn;
+            BEPUutilities.Vector3 toReturn = new BEPUutilities.Vector3();
             toReturn.X = xnaVector.X;
             toReturn.Y = xnaVector.Y;
             toReturn.Z = xnaVector.Z;
@@ -65,6 +74,9 @@ namespace ConversionHelper
 
         public static void Convert(ref Vector3 xnaVector, out BEPUutilities.Vector3 bepuVector)
         {
+#if !WINDOWS
+            bepuVector = new BEPUutilities.Vector3();
+#endif
             bepuVector.X = xnaVector.X;
             bepuVector.Y = xnaVector.Y;
             bepuVector.Z = xnaVector.Z;
@@ -109,6 +121,9 @@ namespace ConversionHelper
 
         public static void Convert(ref BEPUutilities.Matrix matrix, out Matrix xnaMatrix)
         {
+#if !WINDOWS
+            xnaMatrix = new Matrix();
+#endif
             xnaMatrix.M11 = matrix.M11;
             xnaMatrix.M12 = matrix.M12;
             xnaMatrix.M13 = matrix.M13;
@@ -133,6 +148,9 @@ namespace ConversionHelper
 
         public static void Convert(ref Matrix matrix, out BEPUutilities.Matrix bepuMatrix)
         {
+#if !WINDOWS
+            bepuMatrix = new BEPUutilities.Matrix();
+#endif
             bepuMatrix.M11 = matrix.M11;
             bepuMatrix.M12 = matrix.M12;
             bepuMatrix.M13 = matrix.M13;
@@ -164,6 +182,9 @@ namespace ConversionHelper
 
         public static void Convert(ref BEPUutilities.Matrix3x3 matrix, out Matrix xnaMatrix)
         {
+#if !WINDOWS
+            xnaMatrix = new Matrix();
+#endif
             xnaMatrix.M11 = matrix.M11;
             xnaMatrix.M12 = matrix.M12;
             xnaMatrix.M13 = matrix.M13;
@@ -187,6 +208,9 @@ namespace ConversionHelper
 
         public static void Convert(ref Matrix matrix, out BEPUutilities.Matrix3x3 bepuMatrix)
         {
+#if !WINDOWS
+            bepuMatrix = new BEPUutilities.Matrix3x3();
+#endif
             bepuMatrix.M11 = matrix.M11;
             bepuMatrix.M12 = matrix.M12;
             bepuMatrix.M13 = matrix.M13;
@@ -204,7 +228,7 @@ namespace ConversionHelper
         //Quaternion
         public static Quaternion Convert(BEPUutilities.Quaternion quaternion)
         {
-            Quaternion toReturn;
+            Quaternion toReturn = new Quaternion();
             toReturn.X = quaternion.X;
             toReturn.Y = quaternion.Y;
             toReturn.Z = quaternion.Z;
@@ -224,6 +248,9 @@ namespace ConversionHelper
 
         public static void Convert(ref BEPUutilities.Quaternion bepuQuaternion, out Quaternion quaternion)
         {
+#if !WINDOWS
+            quaternion = new Quaternion();
+#endif
             quaternion.X = bepuQuaternion.X;
             quaternion.Y = bepuQuaternion.Y;
             quaternion.Z = bepuQuaternion.Z;
@@ -232,6 +259,9 @@ namespace ConversionHelper
 
         public static void Convert(ref Quaternion quaternion, out  BEPUutilities.Quaternion bepuQuaternion)
         {
+#if !WINDOWS
+            bepuQuaternion = new BEPUutilities.Quaternion();
+#endif
             bepuQuaternion.X = quaternion.X;
             bepuQuaternion.Y = quaternion.Y;
             bepuQuaternion.Z = quaternion.Z;

@@ -197,10 +197,13 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         /// <returns>Whether or not the ray hit the target.</returns>
         public override bool RayTest(ref Ray ray, ref RigidTransform transform, float maximumLength, out RayHit hit)
         {
-            Vector3.Subtract(ref ray.Position, ref transform.Position, out var offset);
-            Matrix3x3.CreateFromQuaternion(ref transform.Orientation, out var orientation);
-            Matrix3x3.TransformTranspose(ref offset, ref orientation, out var localOffset);
-            Matrix3x3.TransformTranspose(ref ray.Direction, ref orientation, out var localDirection);
+            Vector3 offset, localOffset, localDirection, negativeTNumerator, positiveTNumerator, negativeT, positiveT, entryT, exitT, offsetFromOrigin;
+            Matrix3x3 orientation;
+
+            Vector3.Subtract(ref ray.Position, ref transform.Position, out offset);
+            Matrix3x3.CreateFromQuaternion(ref transform.Orientation, out orientation);
+            Matrix3x3.TransformTranspose(ref offset, ref orientation, out localOffset);
+            Matrix3x3.TransformTranspose(ref ray.Direction, ref orientation, out localDirection);
             //Note that this division has two odd properties:
             //1) If the local direction has a near zero component, it is clamped to a nonzero but extremely small value. This is a hack, but it works reasonably well.
             //The idea is that any interval computed using such an inverse would be enormous. Those values will not be exactly accurate, but they will never appear as a result
@@ -213,12 +216,12 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
 
             //Compute impact times for each pair of planes in local space.
             var halfExtent = new Vector3(HalfWidth, HalfHeight, HalfLength);
-            Vector3.Subtract(ref localOffset, ref halfExtent, out var negativeTNumerator);
-            Vector3.Add(ref localOffset, ref halfExtent, out var positiveTNumerator);
-            Vector3.Multiply(ref negativeTNumerator, ref offsetToTScale, out var negativeT);
-            Vector3.Multiply(ref positiveTNumerator, ref offsetToTScale, out var positiveT);
-            Vector3.Min(ref negativeT, ref positiveT, out var entryT);
-            Vector3.Max(ref negativeT, ref positiveT, out var exitT);
+            Vector3.Subtract(ref localOffset, ref halfExtent, out negativeTNumerator);
+            Vector3.Add(ref localOffset, ref halfExtent, out positiveTNumerator);
+            Vector3.Multiply(ref negativeTNumerator, ref offsetToTScale, out negativeT);
+            Vector3.Multiply(ref positiveTNumerator, ref offsetToTScale, out positiveT);
+            Vector3.Min(ref negativeT, ref positiveT, out entryT);
+            Vector3.Max(ref negativeT, ref positiveT, out exitT);
 
             //In order for an impact to occur, the ray must enter all three slabs formed by the axis planes before exiting any of them.
             //In other words, the first exit must occur after the last entry.
@@ -230,7 +233,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             //The interval of ray-box intersection goes from latestEntry to earliestExit. If earliestExit is negative, then the ray is pointing away from the box.
             if (earliestExit < 0)
             {
-                hit = default;
+                hit = default(RayHit);
                 return false;
             }
             float latestEntry;
@@ -264,7 +267,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             if (earliestExit < latestEntry)
             {
                 //At no point is the ray in all three slabs at once.
-                hit = default;
+                hit = default(RayHit);
                 return false;
             }
             hit.T = latestEntry < 0 ? 0 : latestEntry;
@@ -273,7 +276,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             {
                 Vector3.Negate(ref hit.Normal, out hit.Normal);
             }
-            Vector3.Multiply(ref ray.Direction, hit.T, out var offsetFromOrigin);
+            Vector3.Multiply(ref ray.Direction, hit.T, out offsetFromOrigin);
             Vector3.Add(ref ray.Position, ref offsetFromOrigin, out hit.Location);
             return true;
         }
