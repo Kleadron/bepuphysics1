@@ -42,7 +42,8 @@
     <DefineConstants>DEBUG;TRACE;XBOX;XBOX360</DefineConstants>
     <XnaCompressContent>true</XnaCompressContent>
     <LangVersion>default</LangVersion>
-    <DocumentationFile>bin\Xbox 360\Debug\ConversionHelper.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\BEPUutilities\BEPUutilities %28Xbox 360%29.csproj">
