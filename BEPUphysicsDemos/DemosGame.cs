@@ -106,7 +106,9 @@ namespace BEPUphysicsDemos
                                                     typeof (PathFollowingDemo),
                                                     typeof (FishInABarrelDemo),
                                                     typeof (DetectorVolumeDemo),
-                                                    typeof (InverseKinematicsTestDemo)
+#if WINDOWS
+                                                    typeof (InverseKinematicsTestDemo),
+#endif
                                                 };
 
 
