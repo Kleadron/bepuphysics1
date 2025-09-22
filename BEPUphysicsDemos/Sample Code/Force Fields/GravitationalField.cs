@@ -2,6 +2,7 @@ using System;
 using BEPUphysics.Entities;
 using BEPUphysics.UpdateableSystems.ForceFields;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.SampleCode
 {

@@ -5,7 +5,8 @@ using BEPUutilities;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.BroadPhaseEntries.Events;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
-using ConversionHelper;
+using Microsoft.Xna.Framework;
+
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

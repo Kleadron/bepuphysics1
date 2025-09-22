@@ -8,6 +8,7 @@ using BEPUphysics.NarrowPhaseSystems;
 using BEPUphysics.Settings;
 using BEPUutilities;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

@@ -8,6 +8,7 @@ using BEPUutilities;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.BroadPhaseSystems.Hierarchies;
 using BEPUphysics.BroadPhaseSystems.SortAndSweep;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

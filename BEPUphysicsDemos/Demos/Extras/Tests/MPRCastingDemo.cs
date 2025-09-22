@@ -7,7 +7,8 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUphysics.NarrowPhaseSystems;
-using ConversionHelper;
+using Microsoft.Xna.Framework;
+
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {
@@ -98,8 +99,8 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
         {
             if (hit)
             {
-                lines[0].Position = MathConverter.Convert(hitData.Location);
-                lines[1].Position = MathConverter.Convert(hitData.Location + hitData.Normal);
+                lines[0].Position = hitData.Location;
+                lines[1].Position = hitData.Location + hitData.Normal;
                 foreach (EffectPass pass in Game.LineDrawer.CurrentTechnique.Passes)
                 {
                     pass.Apply();

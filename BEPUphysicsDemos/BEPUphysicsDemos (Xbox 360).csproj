@@ -200,10 +200,6 @@
       <Project>{917ee545-2212-4cf8-8986-4aae3d276ab1}</Project>
       <Name>BEPUutilities %28Xbox 360%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ConversionHelper\ConversionHelper %28Xbox 360%29.csproj">
-      <Project>{173ba789-e626-4cfa-bc92-fe949c6d8525}</Project>
-      <Name>ConversionHelper %28Xbox 360%29</Name>
-    </ProjectReference>
     <ProjectReference Include="Content\Content %28Demos%29.contentproj">
       <Name>Content %28Demos%29 %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>

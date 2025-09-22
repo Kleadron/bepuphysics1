@@ -6,6 +6,7 @@ using BEPUphysics.NarrowPhaseSystems.Pairs;
 using BEPUphysicsDrawer.Models;
 using Microsoft.Xna.Framework.Graphics;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

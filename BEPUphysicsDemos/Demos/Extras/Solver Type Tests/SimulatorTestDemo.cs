@@ -8,11 +8,9 @@ using BEPUphysics.Entities.Prefabs;
 using BEPUphysicsDrawer.Models;
 using BEPUutilities;
 using BEPUutilities.DataStructures;
-using ConversionHelper;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Plane = BEPUutilities.Plane;
-using Vector3 = BEPUutilities.Vector3;
 
 namespace BEPUphysicsDemos.Demos.Extras.SolverTypeTests
 {
@@ -158,8 +156,8 @@ namespace BEPUphysicsDemos.Demos.Extras.SolverTypeTests
             var distanceConstraint = constraint as DistanceConstraint;
             if (distanceConstraint != null)
             {
-                lines[index] = new VertexPositionColor(MathConverter.Convert(distanceConstraint.A.Position), color);
-                lines[index + 1] = new VertexPositionColor(MathConverter.Convert(distanceConstraint.B.Position), color);
+                lines[index] = new VertexPositionColor(distanceConstraint.A.Position, color);
+                lines[index + 1] = new VertexPositionColor(distanceConstraint.B.Position, color);
                 return;
             }
             var planeConstraint = constraint as PlaneCollisionConstraint;
@@ -173,15 +171,15 @@ namespace BEPUphysicsDemos.Demos.Extras.SolverTypeTests
                     {
                         //We're near enough to see it, but not penetrating.
                         color = Color.Lerp(new Color(1f, 1f, 1f), new Color(1f, 0f, 0f), (threshold - distance) / threshold);
-                        lines[index] = new VertexPositionColor(MathConverter.Convert(planeConstraint.Dynamic.Position), color);
-                        lines[index + 1] = new VertexPositionColor(MathConverter.Convert(planeConstraint.Dynamic.Position - planeConstraint.Plane.Normal * distance), color);
+                        lines[index] = new VertexPositionColor(planeConstraint.Dynamic.Position, color);
+                        lines[index + 1] = new VertexPositionColor(planeConstraint.Dynamic.Position - planeConstraint.Plane.Normal * distance, color);
                     }
                     else
                     {
                         //Negative! Penetrating.
                         var penetratingColor = new Color(1f, 0f, 0f);
-                        lines[index] = new VertexPositionColor(MathConverter.Convert(planeConstraint.Dynamic.Position), penetratingColor);
-                        lines[index + 1] = new VertexPositionColor(MathConverter.Convert(planeConstraint.Dynamic.Position - planeConstraint.Plane.Normal * distance), penetratingColor);
+                        lines[index] = new VertexPositionColor(planeConstraint.Dynamic.Position, penetratingColor);
+                        lines[index + 1] = new VertexPositionColor(planeConstraint.Dynamic.Position - planeConstraint.Plane.Normal * distance, penetratingColor);
                     }
                 }
                 else
@@ -249,10 +247,10 @@ namespace BEPUphysicsDemos.Demos.Extras.SolverTypeTests
 
         public override void DrawUI()
         {
-            Game.DataTextDrawer.Draw("Jacobi total time (ms): ", 1000 * jacobiSimulator.TotalTime, 2, new Microsoft.Xna.Framework.Vector2(10f, 20f));
-            Game.DataTextDrawer.Draw("Jacobi solve time (ms): ", 1000 * jacobiSimulator.SolveTime, 2, new Microsoft.Xna.Framework.Vector2(10f, 40f));
-            Game.DataTextDrawer.Draw("Sequential total time (ms): ", 1000 * sequentialImpulsesSimulator.TotalTime, 2, new Microsoft.Xna.Framework.Vector2(10, 70));
-            Game.DataTextDrawer.Draw("Sequential solve time (ms): ", 1000 * sequentialImpulsesSimulator.SolveTime, 2, new Microsoft.Xna.Framework.Vector2(10, 90));
+            Game.DataTextDrawer.Draw("Jacobi total time (ms): ", 1000 * jacobiSimulator.TotalTime, 2, new Vector2(10f, 20f));
+            Game.DataTextDrawer.Draw("Jacobi solve time (ms): ", 1000 * jacobiSimulator.SolveTime, 2, new Vector2(10f, 40f));
+            Game.DataTextDrawer.Draw("Sequential total time (ms): ", 1000 * sequentialImpulsesSimulator.TotalTime, 2, new Vector2(10, 70));
+            Game.DataTextDrawer.Draw("Sequential solve time (ms): ", 1000 * sequentialImpulsesSimulator.SolveTime, 2, new Vector2(10, 90));
             base.DrawUI();
         }
 

@@ -2,6 +2,7 @@
 using BEPUphysics.CollisionShapes;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

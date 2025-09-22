@@ -3,6 +3,7 @@ using BEPUphysics.Character;
 using BEPUutilities;
 using Microsoft.Xna.Framework.Input;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.AlternateMovement
 {

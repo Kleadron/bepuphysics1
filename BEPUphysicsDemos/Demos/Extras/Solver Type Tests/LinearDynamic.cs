@@ -2,6 +2,7 @@
 using BEPUutilities;
 using BEPUutilities.DataStructures;
 using SpinLock = BEPUutilities.SpinLock;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.SolverTypeTests
 {

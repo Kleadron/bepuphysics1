@@ -4,6 +4,7 @@ using BEPUphysics.Entities.Prefabs;
 using BEPUutilities;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.NarrowPhaseSystems;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

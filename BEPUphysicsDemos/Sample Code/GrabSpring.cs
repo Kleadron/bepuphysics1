@@ -1,6 +1,7 @@
 using BEPUphysics.Entities;
 using BEPUphysics.UpdateableSystems;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.SampleCode
 {
@@ -72,7 +73,7 @@ namespace BEPUphysicsDemos.SampleCode
         public void Setup(Entity e, Vector3 grabLocation)
         {
             Entity = e;
-            localOffset = Quaternion.Transform(grabLocation - e.Position, Quaternion.Conjugate(e.Orientation));
+            localOffset = Vector3.Transform(grabLocation - e.Position, Quaternion.Conjugate(e.Orientation));
             GoalPosition = grabLocation;
         }
 

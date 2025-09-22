@@ -3,6 +3,7 @@ using BEPUphysics.Entities.Prefabs;
 using BEPUutilities;
 using System.Diagnostics;
 using BEPUphysics.NarrowPhaseSystems;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

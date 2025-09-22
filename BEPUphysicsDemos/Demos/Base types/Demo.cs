@@ -5,6 +5,7 @@ using BEPUphysics;
 using BEPUutilities;
 using BEPUutilities.Threading;
 using System.Threading;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

@@ -6,6 +6,7 @@ using BEPUutilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

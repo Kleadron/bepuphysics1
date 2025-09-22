@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

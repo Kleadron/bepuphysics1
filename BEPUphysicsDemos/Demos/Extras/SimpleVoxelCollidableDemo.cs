@@ -23,6 +23,7 @@ using BEPUutilities.DataStructures;
 using BEPUutilities.ResourceManagement;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras
 {
@@ -601,7 +602,7 @@ namespace BEPUphysicsDemos.Demos.Extras
                             //This is a turbo-inefficient way to render things, but good enough for now. If you want to visualize a larger amount... you'll probably have to write your own.
                             game.ModelDrawer.Add(new DisplayModel(game.Content.Load<Model>("cube"), game.ModelDrawer)
                                 {
-                                    WorldTransform = Matrix.CreateWorldRH(grid.Position + new Vector3((i + 0.5f) * cellWidth, (j + 0.5f) * cellWidth, (k + 0.5f) * cellWidth), Vector3.Forward, Vector3.Up)
+                                    WorldTransform = Matrix.CreateWorld(grid.Position + new Vector3((i + 0.5f) * cellWidth, (j + 0.5f) * cellWidth, (k + 0.5f) * cellWidth), Vector3.Forward, Vector3.Up)
                                 });
                         }
                     }

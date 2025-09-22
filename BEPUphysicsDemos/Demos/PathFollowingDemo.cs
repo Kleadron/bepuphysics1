@@ -4,6 +4,7 @@ using BEPUphysics.Entities.Prefabs;
 using BEPUphysics.Paths;
 using BEPUphysics.Paths.PathFollowing;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

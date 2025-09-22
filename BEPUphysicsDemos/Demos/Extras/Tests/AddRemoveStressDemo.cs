@@ -9,6 +9,7 @@ using BEPUphysics.NarrowPhaseSystems;
 using BEPUutilities;
 using BEPUutilities.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

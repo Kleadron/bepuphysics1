@@ -8,7 +8,7 @@ using BEPUphysicsDemos.SampleCode;
 using BEPUphysicsDrawer.Font;
 using BEPUphysicsDrawer.Lines;
 using BEPUphysicsDrawer.Models;
-using ConversionHelper;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -123,7 +123,7 @@ namespace BEPUphysicsDemos
 
             Graphics.PreferredBackBufferWidth = 1280;
             Graphics.PreferredBackBufferHeight = 720;
-            Camera = new Camera(BEPUutilities.Vector3.Zero, 0, 0, BEPUutilities.Matrix.CreatePerspectiveFieldOfViewRH(MathHelper.PiOver4, Graphics.PreferredBackBufferWidth / (float)Graphics.PreferredBackBufferHeight, .1f, 10000));
+            Camera = new Camera(Vector3.Zero, 0, 0, Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Graphics.PreferredBackBufferWidth / (float)Graphics.PreferredBackBufferHeight, .1f, 10000));
 
             Exiting += DemosGameExiting;
 
@@ -412,8 +412,8 @@ namespace BEPUphysicsDemos
             LineDrawer.LightingEnabled = false;
             LineDrawer.VertexColorEnabled = true;
             LineDrawer.World = Matrix.Identity;
-            LineDrawer.View = MathConverter.Convert(viewMatrix);
-            LineDrawer.Projection = MathConverter.Convert(projectionMatrix);
+            LineDrawer.View = viewMatrix;
+            LineDrawer.Projection = projectionMatrix;
 
             if (displayContacts)
                 ContactDrawer.Draw(LineDrawer, currentSimulation.Space);

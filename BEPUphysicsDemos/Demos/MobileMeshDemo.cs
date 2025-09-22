@@ -2,6 +2,7 @@
 using BEPUutilities;
 using Microsoft.Xna.Framework.Graphics;
 using BEPUphysics.CollisionShapes;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

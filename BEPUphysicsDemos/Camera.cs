@@ -1,6 +1,7 @@
 using System;
 using BEPUutilities;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos
 {
@@ -26,7 +27,7 @@ namespace BEPUphysicsDemos
         /// </summary>
         public Matrix ViewMatrix
         {
-            get { return Matrix.CreateViewRH(Position, viewDirection, lockedUp); }
+            get { return Matrix.CreateLookAt(Position, Position + viewDirection, lockedUp); }
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace BEPUphysicsDemos
         /// </summary>
         public Matrix WorldMatrix
         {
-            get { return Matrix.CreateWorldRH(Position, viewDirection, lockedUp); }
+            get { return Matrix.CreateWorld(Position, viewDirection, lockedUp); }
         }
 
         private Vector3 viewDirection = Vector3.Forward;
@@ -98,8 +99,8 @@ namespace BEPUphysicsDemos
                     Vector3.Divide(ref value, (float)Math.Sqrt(lengthSquared), out lockedUp);
                     //Move the view direction with the transform. This helps guarantee that the view direction won't end up aligned with the up vector.
                     Quaternion rotation;
-                    Quaternion.GetQuaternionBetweenNormalizedVectors(ref oldUp, ref lockedUp, out rotation);
-                    Quaternion.Transform(ref viewDirection, ref rotation, out viewDirection);
+                    Toolbox.GetQuaternionBetweenNormalizedVectors(ref oldUp, ref lockedUp, out rotation);
+                    Vector3.Transform(ref viewDirection, ref rotation, out viewDirection);
                 }
                 //If the new up vector was a near-zero vector, silently fail without changing the up vector.
             }

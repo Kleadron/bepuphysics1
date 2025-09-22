@@ -11,9 +11,7 @@ using System;
 using BEPUphysicsDemos.AlternateMovement;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Ray = BEPUutilities.Ray;
-using Vector2 = BEPUutilities.Vector2;
-using Vector3 = BEPUutilities.Vector3;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

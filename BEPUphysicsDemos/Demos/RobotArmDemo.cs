@@ -11,6 +11,7 @@ using BEPUphysics.CollisionShapes;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using System.Collections.Generic;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

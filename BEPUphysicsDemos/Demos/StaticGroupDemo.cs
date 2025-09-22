@@ -7,6 +7,7 @@ using System;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using System.Collections.Generic;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

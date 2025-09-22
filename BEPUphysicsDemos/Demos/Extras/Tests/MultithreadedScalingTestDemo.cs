@@ -9,6 +9,7 @@ using BEPUphysicsDemos.SampleCode;
 using System.Diagnostics;
 using System;
 using BEPUutilities.Threading;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

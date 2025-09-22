@@ -1,5 +1,6 @@
 ﻿using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos
 {

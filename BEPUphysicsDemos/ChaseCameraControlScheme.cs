@@ -5,6 +5,7 @@ using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.Entities;
 using BEPUphysics.Vehicle;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos
 {

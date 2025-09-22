@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System;
 using BEPUutilities;
 using BEPUphysics.Constraints;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

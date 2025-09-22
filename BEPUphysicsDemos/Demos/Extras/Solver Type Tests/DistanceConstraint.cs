@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.SolverTypeTests
 {

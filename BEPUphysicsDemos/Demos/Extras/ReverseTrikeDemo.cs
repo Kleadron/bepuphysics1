@@ -7,6 +7,7 @@ using BEPUutilities;
 using Microsoft.Xna.Framework.Input;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.Materials;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras
 {

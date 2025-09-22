@@ -7,6 +7,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
 using Microsoft.Xna.Framework.Graphics;
 using BEPUphysics;
 using BEPUphysicsDrawer.Models;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

@@ -5,6 +5,7 @@ using BEPUphysics.UpdateableSystems.ForceFields;
 using BEPUphysicsDemos.SampleCode;
 using BEPUphysics.NarrowPhaseSystems;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

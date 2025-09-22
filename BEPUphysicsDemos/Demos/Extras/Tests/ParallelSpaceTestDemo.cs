@@ -4,6 +4,7 @@ using BEPUphysics;
 using System.Collections.Generic;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

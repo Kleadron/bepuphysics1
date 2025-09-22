@@ -5,6 +5,7 @@ using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseSystems;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.SampleCode
 {

@@ -3,13 +3,10 @@ using System;
 using System.Collections.Generic;
 using BEPUphysics;
 using BEPUphysics.Entities.Prefabs;
-using ConversionHelper;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Matrix = BEPUutilities.Matrix;
-using Ray = BEPUutilities.Ray;
-using Vector3 = BEPUutilities.Vector3;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {
@@ -100,9 +97,9 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
             }
             Game.LineDrawer.LightingEnabled = false;
             Game.LineDrawer.VertexColorEnabled = true;
-            Game.LineDrawer.World = Microsoft.Xna.Framework.Matrix.Identity;
-            Game.LineDrawer.View = MathConverter.Convert(Game.Camera.ViewMatrix);
-            Game.LineDrawer.Projection = MathConverter.Convert(Game.Camera.ProjectionMatrix);
+            Game.LineDrawer.World = Matrix.Identity;
+            Game.LineDrawer.View = Game.Camera.ViewMatrix;
+            Game.LineDrawer.Projection = Game.Camera.ProjectionMatrix;
             Game.GraphicsDevice.BlendState = BlendState.Opaque;
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
@@ -112,10 +109,10 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
                 Game.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList,
                                                        new[]
                                                                {
-                                                                   new VertexPositionColor(MathConverter.Convert(origin), Color.Blue),
-                                                                   new VertexPositionColor(MathConverter.Convert(result.HitData.Location), Color.Blue),
-                                                                   new VertexPositionColor(MathConverter.Convert(result.HitData.Location), Color.Blue),
-                                                                   new VertexPositionColor(MathConverter.Convert(result.HitData.Normal + result.HitData.Location), Color.Blue)
+                                                                   new VertexPositionColor(origin, Color.Blue),
+                                                                   new VertexPositionColor(result.HitData.Location, Color.Blue),
+                                                                   new VertexPositionColor(result.HitData.Location, Color.Blue),
+                                                                   new VertexPositionColor(result.HitData.Normal + result.HitData.Location, Color.Blue)
                                                                },
                                                        0, 2);
             }

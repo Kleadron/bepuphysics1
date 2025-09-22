@@ -10,6 +10,7 @@ using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.BroadPhaseSystems;
 using BEPUphysics.BroadPhaseSystems.Hierarchies;
 using BEPUutilities.Threading;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

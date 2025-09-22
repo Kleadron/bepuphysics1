@@ -4,6 +4,7 @@ using BEPUphysics.Constraints.TwoEntity.Motors;
 using BEPUphysics.Entities;
 using BEPUphysics.UpdateableSystems;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.SampleCode
 {
@@ -133,7 +134,7 @@ namespace BEPUphysicsDemos.SampleCode
             linearMotor.Settings.MaximumForce = 1000 * e.Mass;
 
             Entity = e;
-            LocalOffset = Quaternion.Transform(grabLocation - e.Position, Quaternion.Conjugate(e.Orientation));
+            LocalOffset = Vector3.Transform(grabLocation - e.Position, Quaternion.Conjugate(e.Orientation));
             angularMotor.Settings.Servo.Goal = e.Orientation;
             GoalPosition = grabLocation;
 

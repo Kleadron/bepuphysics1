@@ -2,8 +2,9 @@
 using BEPUphysics.Entities.Prefabs;
 using BEPUphysicsDrawer.Models;
 using BEPUutilities;
-using ConversionHelper;
+
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras
 {
@@ -27,7 +28,7 @@ namespace BEPUphysicsDemos.Demos.Extras
             //http://bepuphysics.codeplex.com/wikipage?title=Shape%20Recentering
 
             var model = game.Content.Load<Model>("guy");
-            BEPUutilities.Vector3[] vertices;
+            Vector3[] vertices;
             int[] indices;
             ModelDataExtractor.GetVerticesAndIndicesFromModel(model, out vertices, out indices);
 

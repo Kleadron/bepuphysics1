@@ -8,6 +8,7 @@ using BEPUutilities;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

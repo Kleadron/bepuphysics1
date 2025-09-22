@@ -5,6 +5,7 @@ using BEPUphysics.CollisionShapes;
 using System.Collections.Generic;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.Entities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {

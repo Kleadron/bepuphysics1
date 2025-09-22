@@ -12,7 +12,8 @@ using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUphysics.CollisionTests;
 
 using Microsoft.Xna.Framework.Input;
-using ConversionHelper;
+using Microsoft.Xna.Framework;
+
 
 namespace BEPUphysicsDemos.Demos.Extras.Tests
 {
@@ -288,14 +289,14 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
             minkowskiLines.Clear();
             for (int i = 0; i < indices.Count; i += 3)
             {
-                minkowskiLines.Add(new VertexPositionColor(MathConverter.Convert(vertices[indices[i]]), Microsoft.Xna.Framework.Color.Blue));
-                minkowskiLines.Add(new VertexPositionColor(MathConverter.Convert(vertices[indices[i + 1]]), Microsoft.Xna.Framework.Color.Blue));
+                minkowskiLines.Add(new VertexPositionColor(vertices[indices[i]], Color.Blue));
+                minkowskiLines.Add(new VertexPositionColor(vertices[indices[i + 1]], Color.Blue));
 
-                minkowskiLines.Add(new VertexPositionColor(MathConverter.Convert(vertices[indices[i + 1]]), Microsoft.Xna.Framework.Color.Blue));
-                minkowskiLines.Add(new VertexPositionColor(MathConverter.Convert(vertices[indices[i + 2]]), Microsoft.Xna.Framework.Color.Blue));
+                minkowskiLines.Add(new VertexPositionColor(vertices[indices[i + 1]], Color.Blue));
+                minkowskiLines.Add(new VertexPositionColor(vertices[indices[i + 2]], Color.Blue));
 
-                minkowskiLines.Add(new VertexPositionColor(MathConverter.Convert(vertices[indices[i + 2]]), Microsoft.Xna.Framework.Color.Blue));
-                minkowskiLines.Add(new VertexPositionColor(MathConverter.Convert(vertices[indices[i]]), Microsoft.Xna.Framework.Color.Blue));
+                minkowskiLines.Add(new VertexPositionColor(vertices[indices[i + 2]], Color.Blue));
+                minkowskiLines.Add(new VertexPositionColor(vertices[indices[i]], Color.Blue));
             }
 
         }

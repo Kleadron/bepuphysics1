@@ -2,6 +2,7 @@
 using BEPUphysics.Entities;
 using BEPUphysics.Entities.Prefabs;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysicsDemos.Demos
 {

@@ -1,7 +1,7 @@
 ﻿using BEPUphysicsDemos.SampleCode;
 using BEPUphysicsDrawer.Lines;
 using Microsoft.Xna.Framework;
-using ConversionHelper;
+
 
 namespace BEPUphysicsDemos
 {
@@ -33,8 +33,8 @@ namespace BEPUphysicsDemos
             //Move lines around
 
 
-            error.PositionA = MathConverter.Convert(LineObject.GoalPosition);
-            error.PositionB = MathConverter.Convert(LineObject.GrabbedPosition);
+            error.PositionA = LineObject.GoalPosition;
+            error.PositionB = LineObject.GrabbedPosition;
         }
     }
 }
