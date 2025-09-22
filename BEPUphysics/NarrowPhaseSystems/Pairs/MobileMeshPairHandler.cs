@@ -9,6 +9,7 @@ using BEPUphysics.PositionUpdating;
 using BEPUphysics.Settings;
  
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {

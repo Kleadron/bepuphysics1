@@ -3,6 +3,7 @@ using BEPUphysics.Entities;
  
 using BEPUphysics.Settings;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.DataStructures;
 
 namespace BEPUphysics.Constraints.Collision

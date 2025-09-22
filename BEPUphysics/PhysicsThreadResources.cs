@@ -11,6 +11,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.DeactivationManagement;
 using BEPUutilities.DataStructures;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.ResourceManagement;
 
 namespace BEPUphysics

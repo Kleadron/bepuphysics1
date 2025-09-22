@@ -2,6 +2,7 @@
 using BEPUphysics.Entities;
  
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Constraints.TwoEntity.Joints
 {
@@ -86,7 +87,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
                 worldHingeAxis = Vector3.Normalize(value);
                 Quaternion conjugate;
                 Quaternion.Conjugate(ref connectionA.orientation, out conjugate);
-                Quaternion.Transform(ref worldHingeAxis, ref conjugate, out localHingeAxis);
+                Vector3.Transform(ref worldHingeAxis, ref conjugate, out localHingeAxis);
             }
         }
 
@@ -101,7 +102,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
                 worldTwistAxis = Vector3.Normalize(value);
                 Quaternion conjugate;
                 Quaternion.Conjugate(ref connectionB.orientation, out conjugate);
-                Quaternion.Transform(ref worldTwistAxis, ref conjugate, out localTwistAxis);
+                Vector3.Transform(ref worldTwistAxis, ref conjugate, out localTwistAxis);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
  
 
 namespace BEPUphysics.Constraints.TwoEntity.Joints
@@ -207,7 +208,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
 
             float angle;
             Vector3 axis;
-            Quaternion.GetAxisAngleFromQuaternion(ref intermediate, out axis, out angle);
+            Toolbox.GetAxisAngleFromQuaternion(ref intermediate, out axis, out angle);
 
             error.X = axis.X * angle;
             error.Y = axis.Y * angle;

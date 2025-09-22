@@ -1,4 +1,5 @@
 ﻿using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUik
 {
@@ -19,8 +20,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 OffsetA
         {
-            get { return Quaternion.Transform(LocalOffsetA, ConnectionA.Orientation); }
-            set { LocalOffsetA = Quaternion.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation)); }
+            get { return Vector3.Transform(LocalOffsetA, ConnectionA.Orientation); }
+            set { LocalOffsetA = Vector3.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation)); }
         }
 
         /// <summary>
@@ -28,8 +29,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 OffsetB
         {
-            get { return Quaternion.Transform(LocalOffsetB, ConnectionB.Orientation); }
-            set { LocalOffsetB = Quaternion.Transform(value, Quaternion.Conjugate(ConnectionB.Orientation)); }
+            get { return Vector3.Transform(LocalOffsetB, ConnectionB.Orientation); }
+            set { LocalOffsetB = Vector3.Transform(value, Quaternion.Conjugate(ConnectionB.Orientation)); }
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace BEPUik
             //The jacobian entries are is [ La, Aa, -Lb, -Ab ] because the relative velocity is computed using A-B. So, negate B's jacobians!
             linearJacobianB = new Matrix3x3 { M11 = -1, M22 = -1, M33 = -1 };
             Vector3 rA;
-            Quaternion.Transform(ref LocalOffsetA, ref ConnectionA.Orientation, out rA);
+            Vector3.Transform(ref LocalOffsetA, ref ConnectionA.Orientation, out rA);
             Matrix3x3.CreateCrossProduct(ref rA, out angularJacobianA);
             //Transposing a skew-symmetric matrix is equivalent to negating it.
             Matrix3x3.Transpose(ref angularJacobianA, out angularJacobianA);
@@ -60,7 +61,7 @@ namespace BEPUik
             Vector3.Add(ref ConnectionA.Position, ref rA, out worldPositionA);
 
             Vector3 rB;
-            Quaternion.Transform(ref LocalOffsetB, ref ConnectionB.Orientation, out rB);
+            Vector3.Transform(ref LocalOffsetB, ref ConnectionB.Orientation, out rB);
             Matrix3x3.CreateCrossProduct(ref rB, out angularJacobianB);
 
             Vector3 worldPositionB;

@@ -4,6 +4,7 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.DataStructures;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using System;
 using BEPUphysics.Settings;
 using BEPUutilities.DataStructures;

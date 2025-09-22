@@ -3,6 +3,7 @@ using System.Diagnostics;
 using BEPUphysics.Constraints;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.DataStructures;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.Settings;

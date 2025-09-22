@@ -1,6 +1,7 @@
 ﻿using System;
 using BEPUphysics.CollisionTests;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
  
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs

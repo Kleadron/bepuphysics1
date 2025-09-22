@@ -1,4 +1,5 @@
 ﻿using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUik
 {
@@ -52,7 +53,7 @@ namespace BEPUik
             //Convert the error into an axis-angle vector usable for bias velocity.
             float angle;
             Vector3 axis;
-            Quaternion.GetAxisAngleFromQuaternion(ref error, out axis, out angle);
+            Toolbox.GetAxisAngleFromQuaternion(ref error, out axis, out angle);
 
             velocityBias.X = errorCorrectionFactor * axis.X * angle;
             velocityBias.Y = errorCorrectionFactor * axis.Y * angle;

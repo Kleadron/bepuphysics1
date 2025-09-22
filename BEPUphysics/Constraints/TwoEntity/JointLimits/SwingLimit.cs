@@ -2,6 +2,7 @@
 using BEPUphysics.Entities;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Constraints.TwoEntity.JointLimits
 {
@@ -98,7 +99,7 @@ namespace BEPUphysics.Constraints.TwoEntity.JointLimits
                 worldAxisA = Vector3.Normalize(value);
                 Quaternion conjugate;
                 Quaternion.Conjugate(ref connectionA.orientation, out conjugate);
-                Quaternion.Transform(ref worldAxisA, ref conjugate, out localAxisA);
+                Vector3.Transform(ref worldAxisA, ref conjugate, out localAxisA);
             }
         }
 
@@ -113,7 +114,7 @@ namespace BEPUphysics.Constraints.TwoEntity.JointLimits
                 worldAxisB = Vector3.Normalize(value);
                 Quaternion conjugate;
                 Quaternion.Conjugate(ref connectionB.orientation, out conjugate);
-                Quaternion.Transform(ref worldAxisB, ref conjugate, out localAxisB);
+                Vector3.Transform(ref worldAxisB, ref conjugate, out localAxisB);
             }
         }
 

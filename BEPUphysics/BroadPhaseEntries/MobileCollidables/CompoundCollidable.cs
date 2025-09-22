@@ -3,6 +3,7 @@ using BEPUphysics.BroadPhaseEntries.Events;
 using BEPUphysics.BroadPhaseSystems;
 using BEPUphysics.CollisionShapes;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.DataStructures;
 using BEPUphysics.Materials;
 using BEPUphysics.CollisionRuleManagement;

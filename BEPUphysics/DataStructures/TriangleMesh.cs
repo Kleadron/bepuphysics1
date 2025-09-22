@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.ResourceManagement;
 
 namespace BEPUphysics.DataStructures

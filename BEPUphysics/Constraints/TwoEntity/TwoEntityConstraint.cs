@@ -3,6 +3,7 @@ using BEPUphysics.Entities.Prefabs;
  
 using BEPUutilities.DataStructures;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Constraints.TwoEntity
 {

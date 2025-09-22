@@ -2,6 +2,7 @@
 using BEPUphysics.Constraints.TwoEntity.Motors;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
  
 
 namespace BEPUphysics.Constraints.SingleEntity
@@ -158,7 +159,7 @@ namespace BEPUphysics.Constraints.SingleEntity
             {
                 Quaternion currentRelativeOrientation;
                 var worldTransform = basis.WorldTransform;
-                Quaternion.CreateFromRotationMatrix(ref worldTransform, out currentRelativeOrientation);
+                Matrix3x3.CreateQuaternion(ref worldTransform, out currentRelativeOrientation);
 
 
                 //Compute the relative orientation R' between R and the target relative orientation.
@@ -171,7 +172,7 @@ namespace BEPUphysics.Constraints.SingleEntity
                 settings.servo.springSettings.ComputeErrorReductionAndSoftness(dt, updateRate, out errorReduction, out usedSoftness);
 
                 //Turn this into an axis-angle representation.
-                Quaternion.GetAxisAngleFromQuaternion(ref errorOrientation, out axis, out angle);
+                Toolbox.GetAxisAngleFromQuaternion(ref errorOrientation, out axis, out angle);
 
                 //Scale the axis by the desired velocity if the angle is sufficiently large (epsilon).
                 if (angle > Toolbox.BigEpsilon)

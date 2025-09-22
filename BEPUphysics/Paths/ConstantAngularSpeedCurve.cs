@@ -1,4 +1,5 @@
 ﻿using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 
 namespace BEPUphysics.Paths
@@ -34,7 +35,7 @@ namespace BEPUphysics.Paths
         {
             Quaternion.Conjugate(ref end, out end);
             Quaternion.Multiply(ref end, ref start, out end);
-            return Quaternion.GetAngleFromQuaternion(ref end);
+            return Toolbox.GetAngleFromQuaternion(ref end);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUik
 {
@@ -20,10 +21,10 @@ namespace BEPUik
         /// </summary>
         public Vector3 WorldHingeAxis
         {
-            get { return Quaternion.Transform(LocalHingeAxis, ConnectionA.Orientation); }
+            get { return Vector3.Transform(LocalHingeAxis, ConnectionA.Orientation); }
             set
             {
-                LocalHingeAxis = Quaternion.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation));
+                LocalHingeAxis = Vector3.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation));
             }
         }
 
@@ -32,10 +33,10 @@ namespace BEPUik
         /// </summary>
         public Vector3 WorldTwistAxis
         {
-            get { return Quaternion.Transform(LocalTwistAxis, ConnectionB.Orientation); }
+            get { return Vector3.Transform(LocalTwistAxis, ConnectionB.Orientation); }
             set
             {
-                LocalTwistAxis = Quaternion.Transform(value, Quaternion.Conjugate(ConnectionB.Orientation));
+                LocalTwistAxis = Vector3.Transform(value, Quaternion.Conjugate(ConnectionB.Orientation));
             }
         }
 
@@ -65,8 +66,8 @@ namespace BEPUik
             //The restricted axis is the cross product between the twist and hinge axes.
 
             Vector3 worldTwistAxis, worldHingeAxis;
-            Quaternion.Transform(ref LocalHingeAxis, ref ConnectionA.Orientation, out worldHingeAxis);
-            Quaternion.Transform(ref LocalTwistAxis, ref ConnectionB.Orientation, out worldTwistAxis);
+            Vector3.Transform(ref LocalHingeAxis, ref ConnectionA.Orientation, out worldHingeAxis);
+            Vector3.Transform(ref LocalTwistAxis, ref ConnectionB.Orientation, out worldTwistAxis);
 
             Vector3 restrictedAxis;
             Vector3.Cross(ref worldHingeAxis, ref worldTwistAxis, out restrictedAxis);

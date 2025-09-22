@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BEPUphysics.BroadPhaseSystems;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.DataStructures
 {
@@ -185,8 +186,9 @@ namespace BEPUphysics.DataStructures
         {
             if (root != null)
             {
-                float result;
-                if (ray.Intersects(ref root.BoundingBox, out result))
+                float? result;
+                ray.Intersects(ref root.BoundingBox, out result);
+                if (result != null)
                     root.GetOverlaps(ref ray, float.MaxValue, outputOverlappedElements);
             }
             return outputOverlappedElements.Count > 0;
@@ -202,8 +204,9 @@ namespace BEPUphysics.DataStructures
         {
             if (root != null)
             {
-                float result;
-                if (ray.Intersects(ref root.BoundingBox, out result))
+                float? result;
+                ray.Intersects(ref root.BoundingBox, out result);
+                if (result != null)
                     root.GetOverlaps(ref ray, maximumLength, outputOverlappedElements);
             }
             return outputOverlappedElements.Count > 0;
@@ -340,10 +343,12 @@ namespace BEPUphysics.DataStructures
 
             internal override void GetOverlaps(ref Ray ray, float maximumLength, IList<T> outputOverlappedElements)
             {
-                float result;
-                if (ray.Intersects(ref childA.BoundingBox, out result) && result < maximumLength)
+                float? result;
+                ray.Intersects(ref childA.BoundingBox, out result);
+                if (result != null && result < maximumLength)
                     childA.GetOverlaps(ref ray, maximumLength, outputOverlappedElements);
-                if (ray.Intersects(ref childB.BoundingBox, out result) && result < maximumLength)
+                ray.Intersects(ref childB.BoundingBox, out result);
+                if (result != null && result < maximumLength)
                     childB.GetOverlaps(ref ray, maximumLength, outputOverlappedElements);
             }
 

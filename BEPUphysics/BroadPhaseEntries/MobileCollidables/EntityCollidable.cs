@@ -2,6 +2,7 @@
 using BEPUphysics.CollisionShapes;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
  
 using BEPUphysics.Settings;
 using System;
@@ -84,7 +85,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                 Quaternion conjugate;
                 Quaternion.Conjugate(ref value.Orientation, out conjugate);
                 Vector3 worldOffset;
-                Quaternion.Transform(ref localPosition, ref conjugate, out worldOffset);
+                Vector3.Transform(ref localPosition, ref conjugate, out worldOffset);
                 Vector3.Subtract(ref value.Position, ref worldOffset, out value.Position);
                 UpdateBoundingBoxForTransform(ref value);
             }
@@ -155,7 +156,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         ///<param name="orientation">Orientation to use for the calculation.</param>
         public virtual void UpdateWorldTransform(ref Vector3 position, ref Quaternion orientation)
         {
-            Quaternion.Transform(ref localPosition, ref orientation, out worldTransform.Position);
+            Vector3.Transform(ref localPosition, ref orientation, out worldTransform.Position);
             Vector3.Add(ref worldTransform.Position, ref position, out worldTransform.Position);
             worldTransform.Orientation = orientation;
 

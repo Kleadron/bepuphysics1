@@ -3,6 +3,7 @@ using BEPUphysics.EntityStateManagement;
  
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Entities.Prefabs
 {
@@ -68,7 +69,7 @@ namespace BEPUphysics.Entities.Prefabs
             if (length > 0)
             {
                 Vector3.Divide(ref segmentDirection, length, out segmentDirection);
-                Quaternion.GetQuaternionBetweenNormalizedVectors(ref Toolbox.UpVector, ref segmentDirection, out orientation);
+                Toolbox.GetQuaternionBetweenNormalizedVectors(ref Toolbox.UpVector, ref segmentDirection, out orientation);
             }
             else
                 orientation = Quaternion.Identity;

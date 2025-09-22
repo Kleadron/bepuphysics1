@@ -1,5 +1,6 @@
 ﻿using System;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUik
 {
@@ -22,8 +23,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 AnchorA
         {
-            get { return ConnectionA.Position + Quaternion.Transform(LocalAnchorA, ConnectionA.Orientation); }
-            set { LocalAnchorA = Quaternion.Transform(value - ConnectionA.Position, Quaternion.Conjugate(ConnectionA.Orientation)); }
+            get { return ConnectionA.Position + Vector3.Transform(LocalAnchorA, ConnectionA.Orientation); }
+            set { LocalAnchorA = Vector3.Transform(value - ConnectionA.Position, Quaternion.Conjugate(ConnectionA.Orientation)); }
         }
 
         /// <summary>
@@ -31,8 +32,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 AnchorB
         {
-            get { return ConnectionB.Position + Quaternion.Transform(LocalAnchorB, ConnectionB.Orientation); }
-            set { LocalAnchorB = Quaternion.Transform(value - ConnectionB.Position, Quaternion.Conjugate(ConnectionB.Orientation)); }
+            get { return ConnectionB.Position + Vector3.Transform(LocalAnchorB, ConnectionB.Orientation); }
+            set { LocalAnchorB = Vector3.Transform(value - ConnectionB.Position, Quaternion.Conjugate(ConnectionB.Orientation)); }
         }
 
         private float minimumDistance;
@@ -77,8 +78,8 @@ namespace BEPUik
         {
             //Transform the anchors and offsets into world space.
             Vector3 offsetA, offsetB;
-            Quaternion.Transform(ref LocalAnchorA, ref ConnectionA.Orientation, out offsetA);
-            Quaternion.Transform(ref LocalAnchorB, ref ConnectionB.Orientation, out offsetB);
+            Vector3.Transform(ref LocalAnchorA, ref ConnectionA.Orientation, out offsetA);
+            Vector3.Transform(ref LocalAnchorB, ref ConnectionB.Orientation, out offsetB);
             Vector3 anchorA, anchorB;
             Vector3.Add(ref ConnectionA.Position, ref offsetA, out anchorA);
             Vector3.Add(ref ConnectionB.Position, ref offsetB, out anchorB);

@@ -1,5 +1,6 @@
 ﻿ 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.EntityStateManagement
 {
@@ -97,7 +98,8 @@ namespace BEPUphysics.EntityStateManagement
             {
                 if (IsWriteBufferAccessible())
                 {
-                    Quaternion toSet = Quaternion.Normalize(Quaternion.CreateFromRotationMatrix(value));
+                    Quaternion toSet = Matrix3x3.CreateQuaternion(value);
+                    toSet.Normalize();
                     WriteBuffer.EnqueueOrientation(bufferedStates.Entity, ref toSet);
                 }
                 else

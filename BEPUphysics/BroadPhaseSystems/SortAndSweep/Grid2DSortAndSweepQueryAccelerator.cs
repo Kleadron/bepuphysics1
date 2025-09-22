@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.BroadPhaseEntries;
  
 
@@ -88,8 +89,9 @@ namespace BEPUphysics.BroadPhaseSystems.SortAndSweep
                         && cell.entries.Elements[i].item.boundingBox.Min.X <= endingX; i++) //TODO: Try additional x axis pruning?
                     {
                         var item = cell.entries.Elements[i].item;
-                        float t;
-                        if (ray.Intersects(ref item.boundingBox, out t) && t < maximumLength && !outputIntersections.Contains(item))
+                        float? t;
+                        ray.Intersects(ref item.boundingBox, out t);
+                        if (t != null && t < maximumLength && !outputIntersections.Contains(item))
                         {
                             outputIntersections.Add(item);
                         }

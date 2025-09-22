@@ -4,6 +4,7 @@ using BEPUphysics.Entities;
  
 using BEPUphysics.Materials;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Vehicle
 {

@@ -3,6 +3,7 @@ using BEPUphysics.BroadPhaseSystems;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using BEPUphysics.OtherSpaceStages;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using System;
 using BEPUutilities.DataStructures;
 

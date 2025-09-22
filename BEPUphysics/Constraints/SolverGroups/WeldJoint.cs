@@ -2,6 +2,7 @@
 using BEPUphysics.Constraints.TwoEntity.Joints;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Constraints.SolverGroups
 {

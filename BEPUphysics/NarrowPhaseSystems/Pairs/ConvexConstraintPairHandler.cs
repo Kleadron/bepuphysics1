@@ -11,6 +11,7 @@ using BEPUphysics.Settings;
 
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs
 {

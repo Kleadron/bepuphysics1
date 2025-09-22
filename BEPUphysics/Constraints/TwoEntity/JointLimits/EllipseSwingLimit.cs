@@ -2,6 +2,7 @@
 using BEPUphysics.Entities;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Constraints.TwoEntity.JointLimits
 {
@@ -256,10 +257,10 @@ namespace BEPUphysics.Constraints.TwoEntity.JointLimits
 
             //Compute the individual swing angles.
             Quaternion relativeRotation;
-            Quaternion.GetQuaternionBetweenNormalizedVectors(ref worldTwistAxisB, ref basis.primaryAxis, out relativeRotation);
+            Toolbox.GetQuaternionBetweenNormalizedVectors(ref worldTwistAxisB, ref basis.primaryAxis, out relativeRotation);
             Vector3 axis;
             float angle;
-            Quaternion.GetAxisAngleFromQuaternion(ref relativeRotation, out axis, out angle);
+            Toolbox.GetAxisAngleFromQuaternion(ref relativeRotation, out axis, out angle);
 
 #if !WINDOWS
             Vector3 axisAngle = new Vector3();
@@ -325,8 +326,8 @@ namespace BEPUphysics.Constraints.TwoEntity.JointLimits
             //Create a rotation which swings our basis 'out' to b's world orientation.
             Quaternion.Conjugate(ref relativeRotation, out relativeRotation);
             Vector3 sphereTangentX, sphereTangentY;
-            Quaternion.Transform(ref basis.xAxis, ref relativeRotation, out sphereTangentX);
-            Quaternion.Transform(ref basis.yAxis, ref relativeRotation, out sphereTangentY);
+            Vector3.Transform(ref basis.xAxis, ref relativeRotation, out sphereTangentX);
+            Vector3.Transform(ref basis.yAxis, ref relativeRotation, out sphereTangentY);
 
             Vector3.Multiply(ref sphereTangentX, tangent.X, out jacobianA); //not actually jA, just storing it there.
             Vector3.Multiply(ref sphereTangentY, tangent.Y, out jacobianB); //not actually jB, just storing it there.

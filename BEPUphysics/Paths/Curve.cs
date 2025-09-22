@@ -1,5 +1,6 @@
 ﻿using System;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Paths
 {

@@ -6,6 +6,7 @@ using BEPUphysics.Entities.Prefabs;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.Materials;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Vehicle
 {

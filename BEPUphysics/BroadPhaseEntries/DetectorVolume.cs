@@ -6,6 +6,7 @@ using BEPUutilities.DataStructures;
 using BEPUphysics.Entities;
 using BEPUphysics.OtherSpaceStages;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.ResourceManagement;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.CollisionRuleManagement;

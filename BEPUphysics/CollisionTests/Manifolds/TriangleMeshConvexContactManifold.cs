@@ -7,6 +7,7 @@ using BEPUutilities.ResourceManagement;
 using BEPUphysics.Settings;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.DataStructures;
 
 namespace BEPUphysics.CollisionTests.Manifolds

@@ -1,5 +1,6 @@
 ﻿using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.CollisionShapes;
 
 namespace BEPUphysics.Entities

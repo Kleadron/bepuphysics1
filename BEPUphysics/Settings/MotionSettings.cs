@@ -1,6 +1,7 @@
 ﻿using BEPUphysics.PositionUpdating;
 using System;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using BEPUphysics.Entities;
 using BEPUphysics.CollisionRuleManagement;

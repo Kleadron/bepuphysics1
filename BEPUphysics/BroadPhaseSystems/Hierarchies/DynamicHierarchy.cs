@@ -4,6 +4,7 @@ using BEPUphysics.BroadPhaseEntries;
 using BEPUutilities.DataStructures;
 using BEPUutilities.ResourceManagement;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.Threading;
 
 namespace BEPUphysics.BroadPhaseSystems.Hierarchies

@@ -1,6 +1,7 @@
 ﻿using System;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 
 namespace BEPUphysics.Constraints.TwoEntity.Motors
@@ -238,7 +239,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
                 //Error = (GoalRelativeOrientation * ConnectionA.Orientation)^-1 * ConnectionB.Orientation
 
                 //ConnectionA.Orientation is replaced in the above by the world space basis orientation.
-                Quaternion worldBasis = Quaternion.CreateFromRotationMatrix(basis.WorldTransform);
+                Quaternion worldBasis = Matrix3x3.CreateQuaternion(basis.WorldTransform);
 
                 Quaternion bTarget;
                 Quaternion.Concatenate(ref settings.servo.goal, ref worldBasis, out bTarget);
@@ -253,7 +254,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Motors
                 settings.servo.springSettings.ComputeErrorReductionAndSoftness(dt, inverseDt, out errorReduction, out usedSoftness);
 
                 //Turn this into an axis-angle representation.
-                Quaternion.GetAxisAngleFromQuaternion(ref error, out axis, out angle);
+                Toolbox.GetAxisAngleFromQuaternion(ref error, out axis, out angle);
 
                 //Scale the axis by the desired velocity if the angle is sufficiently large (epsilon).
                 if (angle > Toolbox.BigEpsilon)

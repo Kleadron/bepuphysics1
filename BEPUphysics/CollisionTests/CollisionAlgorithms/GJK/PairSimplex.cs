@@ -1,6 +1,7 @@
 ﻿using BEPUphysics.CollisionShapes.ConvexShapes;
  
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using System.Diagnostics;
 
 namespace BEPUphysics.CollisionTests.CollisionAlgorithms.GJK
@@ -191,7 +192,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms.GJK
             switch (State)
             {
                 case SimplexState.Point:
-                    Quaternion.Transform(ref cachedSimplex.LocalSimplexB.A, ref LocalTransformB.Orientation, out SimplexB.A);
+                    Vector3.Transform(ref cachedSimplex.LocalSimplexB.A, ref LocalTransformB.Orientation, out SimplexB.A);
                     Vector3.Add(ref SimplexB.A, ref LocalTransformB.Position, out SimplexB.A);
 
                     Vector3.Subtract(ref SimplexA.A, ref SimplexB.A, out A);
@@ -296,7 +297,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms.GJK
                     Vector3.Subtract(ref SimplexB.A, ref LocalTransformB.Position, out simplex.LocalSimplexB.A);
                     Quaternion conjugate;
                     Quaternion.Conjugate(ref LocalTransformB.Orientation, out conjugate);
-                    Quaternion.Transform(ref simplex.LocalSimplexB.A, ref conjugate, out simplex.LocalSimplexB.A);
+                    Vector3.Transform(ref simplex.LocalSimplexB.A, ref conjugate, out simplex.LocalSimplexB.A);
                     break;
                 case SimplexState.Segment:
                     Vector3.Subtract(ref SimplexB.A, ref LocalTransformB.Position, out simplex.LocalSimplexB.A);

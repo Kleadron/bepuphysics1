@@ -2,6 +2,7 @@
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
 {

@@ -5,6 +5,7 @@ using BEPUphysics.NarrowPhaseSystems.Pairs;
 
 using BEPUphysics.CollisionRuleManagement;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.Materials;
 using System;
 
@@ -66,11 +67,11 @@ namespace BEPUphysics.Vehicle
             Vector3.Add(ref wheel.suspension.localAttachmentPoint, ref wheel.vehicle.Body.CollisionInformation.localPosition, out localAttach);
             worldTransform = Matrix3x3.ToMatrix4X4(wheel.vehicle.Body.BufferedStates.InterpolatedStates.OrientationMatrix);
 
-            Matrix.TransformNormal(ref localAttach, ref worldTransform, out worldAttachmentPoint);
+            Vector3.TransformNormal(ref localAttach, ref worldTransform, out worldAttachmentPoint);
             worldAttachmentPoint += wheel.vehicle.Body.BufferedStates.InterpolatedStates.Position;
 
             Vector3 worldDirection;
-            Matrix.Transform(ref wheel.suspension.localDirection, ref worldTransform, out worldDirection);
+            Vector3.Transform(ref wheel.suspension.localDirection, ref worldTransform, out worldDirection);
 
             float length = wheel.suspension.currentLength - graphicalRadius;
             newPosition.X = worldAttachmentPoint.X + worldDirection.X * length;

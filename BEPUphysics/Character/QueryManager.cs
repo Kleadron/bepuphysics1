@@ -3,6 +3,7 @@ using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.DataStructures;
 using BEPUphysics.NarrowPhaseSystems;
 using BEPUphysics.CollisionRuleManagement;
@@ -53,8 +54,9 @@ namespace BEPUphysics.Character
             foreach (var collidable in characterBody.CollisionInformation.OverlappedCollidables)
             {
                 //Check to see if the collidable is hit by the ray.
-                float t;
-                if (ray.Intersects(ref collidable.boundingBox, out t) && t < length)
+                float? t;
+                ray.Intersects(ref collidable.boundingBox, out t);
+                if (t != null && t < length)
                 {
                     //Is it an earlier hit than the current earliest?
                     RayHit hit;
@@ -86,8 +88,9 @@ namespace BEPUphysics.Character
             foreach (var collidable in characterBody.CollisionInformation.OverlappedCollidables)
             {
                 //Check to see if the collidable is hit by the ray.
-                float t;
-                if (ray.Intersects(ref collidable.boundingBox, out t) && t < length)
+                float? t;
+                ray.Intersects(ref collidable.boundingBox, out t);
+                if (t != null && t < length)
                 {
                     //Is it an earlier hit than the current earliest?
                     RayHit hit;
@@ -115,8 +118,9 @@ namespace BEPUphysics.Character
             foreach (var collidable in characterBody.CollisionInformation.OverlappedCollidables)
             {
                 //Check to see if the collidable is hit by the ray.
-                float t;
-                if (ray.Intersects(ref collidable.boundingBox, out t) && t < length)
+                float? t;
+                ray.Intersects(ref collidable.boundingBox, out t);
+                if (t != null && t < length)
                 {
                     RayHit hit;
                     if (collidable.RayCast(ray, length, SupportRayFilter, out hit))

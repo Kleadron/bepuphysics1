@@ -4,6 +4,7 @@ using BEPUphysics.Entities;
 using BEPUutilities.DataStructures;
 using BEPUphysics.Settings;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Constraints.Collision
 {

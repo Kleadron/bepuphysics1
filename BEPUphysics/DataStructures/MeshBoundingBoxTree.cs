@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.DataStructures
 {
@@ -185,8 +186,9 @@ namespace BEPUphysics.DataStructures
         {
             if (root != null)
             {
-                float result;
-                if (ray.Intersects(ref root.BoundingBox, out result))
+                float? result;
+                ray.Intersects(ref root.BoundingBox, out result);
+                if (result != null)
                     root.GetOverlaps(ref ray, float.MaxValue, outputOverlappedElements);
             }
             return outputOverlappedElements.Count > 0;
@@ -202,8 +204,9 @@ namespace BEPUphysics.DataStructures
         {
             if (root != null)
             {
-                float result;
-                if (ray.Intersects(ref root.BoundingBox, out result))
+                float? result;
+                ray.Intersects(ref root.BoundingBox, out result);
+                if (result != null)
                     root.GetOverlaps(ref ray, maximumLength, outputOverlappedElements);
             }
             return outputOverlappedElements.Count > 0;
@@ -278,10 +281,12 @@ namespace BEPUphysics.DataStructures
 
             internal override void GetOverlaps(ref Ray ray, float maximumLength, IList<int> outputOverlappedElements)
             {
-                float result;
-                if (ray.Intersects(ref ChildA.BoundingBox, out result) && result < maximumLength)
+                float? result;
+                ray.Intersects(ref ChildA.BoundingBox, out result);
+                if (result != null && result < maximumLength)
                     ChildA.GetOverlaps(ref ray, maximumLength, outputOverlappedElements);
-                if (ray.Intersects(ref ChildB.BoundingBox, out result) && result < maximumLength)
+                ray.Intersects(ref ChildB.BoundingBox, out result);
+                if (result != null && result < maximumLength)
                     ChildB.GetOverlaps(ref ray, maximumLength, outputOverlappedElements);
             }
 

@@ -6,6 +6,7 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.Entities;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.ResourceManagement;
 using BEPUutilities.Threading;
 
@@ -260,7 +261,7 @@ namespace BEPUphysics.UpdateableSystems
             CommonResources.GiveBack(points);
 
             //Compute the transforms used to pull objects into fluid local space.
-            Quaternion.GetQuaternionBetweenNormalizedVectors(ref Toolbox.UpVector, ref upVector, out surfaceTransform.Orientation);
+            Toolbox.GetQuaternionBetweenNormalizedVectors(ref Toolbox.UpVector, ref upVector, out surfaceTransform.Orientation);
             Matrix3x3.CreateFromQuaternion(ref surfaceTransform.Orientation, out toSurfaceRotationMatrix);
             surfaceTransform.Position = surfaceTriangles[0][0];
         }
@@ -415,8 +416,8 @@ namespace BEPUphysics.UpdateableSystems
             float lengthIncrement = (entityBoundingBox.Max.Z - entityBoundingBox.Min.Z) / samplePointsPerDimension;
             xSpacing = new Vector3(widthIncrement, 0, 0);
             zSpacing = new Vector3(0, 0, lengthIncrement);
-            Quaternion.Transform(ref xSpacing, ref surfaceTransform.Orientation, out xSpacing);
-            Quaternion.Transform(ref zSpacing, ref surfaceTransform.Orientation, out zSpacing);
+            Vector3.Transform(ref xSpacing, ref surfaceTransform.Orientation, out xSpacing);
+            Vector3.Transform(ref zSpacing, ref surfaceTransform.Orientation, out zSpacing);
             perColumnArea = widthIncrement * lengthIncrement;
 
 

@@ -1,4 +1,5 @@
 ﻿using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUik
 {
@@ -28,8 +29,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 LineAnchor
         {
-            get { return ConnectionA.Position + Quaternion.Transform(LocalLineAnchor, ConnectionA.Orientation); }
-            set { LocalLineAnchor = Quaternion.Transform(value - ConnectionA.Position, Quaternion.Conjugate(ConnectionA.Orientation)); }
+            get { return ConnectionA.Position + Vector3.Transform(LocalLineAnchor, ConnectionA.Orientation); }
+            set { LocalLineAnchor = Vector3.Transform(value - ConnectionA.Position, Quaternion.Conjugate(ConnectionA.Orientation)); }
         }
 
         /// <summary>
@@ -38,8 +39,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 LineDirection
         {
-            get { return Quaternion.Transform(LocalLineDirection, ConnectionA.Orientation); }
-            set { LocalLineDirection = Quaternion.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation)); }
+            get { return Vector3.Transform(LocalLineDirection, ConnectionA.Orientation); }
+            set { LocalLineDirection = Vector3.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation)); }
         }
 
         /// <summary>
@@ -47,8 +48,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 AnchorB
         {
-            get { return ConnectionB.Position + Quaternion.Transform(LocalAnchorB, ConnectionB.Orientation); }
-            set { LocalAnchorB = Quaternion.Transform(value - ConnectionB.Position, Quaternion.Conjugate(ConnectionB.Orientation)); }
+            get { return ConnectionB.Position + Vector3.Transform(LocalAnchorB, ConnectionB.Orientation); }
+            set { LocalAnchorB = Vector3.Transform(value - ConnectionB.Position, Quaternion.Conjugate(ConnectionB.Orientation)); }
         }
 
         private float minimumDistance;
@@ -95,9 +96,9 @@ namespace BEPUik
         {
             //Transform the anchors and offsets into world space.
             Vector3 offsetA, offsetB, lineDirection;
-            Quaternion.Transform(ref LocalLineAnchor, ref ConnectionA.Orientation, out offsetA);
-            Quaternion.Transform(ref LocalLineDirection, ref ConnectionA.Orientation, out lineDirection);
-            Quaternion.Transform(ref LocalAnchorB, ref ConnectionB.Orientation, out offsetB);
+            Vector3.Transform(ref LocalLineAnchor, ref ConnectionA.Orientation, out offsetA);
+            Vector3.Transform(ref LocalLineDirection, ref ConnectionA.Orientation, out lineDirection);
+            Vector3.Transform(ref LocalAnchorB, ref ConnectionB.Orientation, out offsetB);
             Vector3 anchorA, anchorB;
             Vector3.Add(ref ConnectionA.Position, ref offsetA, out anchorA);
             Vector3.Add(ref ConnectionB.Position, ref offsetB, out anchorB);

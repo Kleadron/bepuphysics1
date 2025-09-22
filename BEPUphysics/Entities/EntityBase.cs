@@ -10,6 +10,7 @@ using BEPUphysics.PositionUpdating;
 using BEPUphysics.Settings;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.Materials;
 using BEPUphysics.CollisionShapes;
 using BEPUphysics.CollisionRuleManagement;
@@ -97,7 +98,7 @@ namespace BEPUphysics.Entities
             }
             set
             {
-                Quaternion.CreateFromRotationMatrix(ref value, out orientation);
+                Matrix3x3.CreateQuaternion(ref value, out orientation);
                 Orientation = orientation; //normalizes and sets.
             }
         }

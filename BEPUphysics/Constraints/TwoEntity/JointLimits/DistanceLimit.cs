@@ -2,6 +2,7 @@ using System;
 using BEPUphysics.Entities;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Constraints.TwoEntity.JointLimits
 {
@@ -132,7 +133,7 @@ namespace BEPUphysics.Constraints.TwoEntity.JointLimits
             set
             {
                 anchorA = value;
-                localAnchorA = Quaternion.Transform(anchorA - connectionA.position, Quaternion.Conjugate(connectionA.orientation));
+                localAnchorA = Vector3.Transform(anchorA - connectionA.position, Quaternion.Conjugate(connectionA.orientation));
             }
         }
 
@@ -145,7 +146,7 @@ namespace BEPUphysics.Constraints.TwoEntity.JointLimits
             set
             {
                 anchorB = value;
-                localAnchorB = Quaternion.Transform(anchorB - connectionB.position, Quaternion.Conjugate(connectionB.orientation));
+                localAnchorB = Vector3.Transform(anchorB - connectionB.position, Quaternion.Conjugate(connectionB.orientation));
             }
         }
 

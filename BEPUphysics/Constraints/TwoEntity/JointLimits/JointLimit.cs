@@ -1,6 +1,7 @@
 ﻿using System;
 using BEPUphysics.Constraints.TwoEntity.Joints;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
  
 
 namespace BEPUphysics.Constraints.TwoEntity.JointLimits

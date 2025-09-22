@@ -3,6 +3,7 @@ using BEPUphysics.CollisionShapes.ConvexShapes;
  
 using BEPUphysics.Settings;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.CollisionTests.CollisionAlgorithms
 {

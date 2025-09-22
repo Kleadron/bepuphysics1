@@ -1,5 +1,6 @@
 ﻿using System;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUik
 {
@@ -41,7 +42,7 @@ namespace BEPUik
             linearJacobian = new Matrix3x3();
 
             Vector3 boneAxis;
-            Quaternion.Transform(ref BoneLocalFreeAxis, ref TargetBone.Orientation, out boneAxis);
+            Vector3.Transform(ref BoneLocalFreeAxis, ref TargetBone.Orientation, out boneAxis);
 
 
             angularJacobian = new Matrix3x3

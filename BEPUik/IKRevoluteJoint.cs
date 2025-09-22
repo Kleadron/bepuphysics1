@@ -1,5 +1,6 @@
 ﻿using System;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUik
 {
@@ -43,10 +44,10 @@ namespace BEPUik
         /// </summary>
         public Vector3 WorldFreeAxisA
         {
-            get { return Quaternion.Transform(localFreeAxisA, ConnectionA.Orientation); }
+            get { return Vector3.Transform(localFreeAxisA, ConnectionA.Orientation); }
             set
             {
-                LocalFreeAxisA = Quaternion.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation));
+                LocalFreeAxisA = Vector3.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation));
             }
         }
 
@@ -56,10 +57,10 @@ namespace BEPUik
         /// </summary>
         public Vector3 WorldFreeAxisB
         {
-            get { return Quaternion.Transform(localFreeAxisB, ConnectionB.Orientation); }
+            get { return Vector3.Transform(localFreeAxisB, ConnectionB.Orientation); }
             set
             {
-                LocalFreeAxisB = Quaternion.Transform(value, Quaternion.Conjugate(ConnectionB.Orientation));
+                LocalFreeAxisB = Vector3.Transform(value, Quaternion.Conjugate(ConnectionB.Orientation));
             }
         }
 
@@ -97,8 +98,8 @@ namespace BEPUik
             //Don't have to normalize the second constraint axis; it's the cross product of two perpendicular normalized vectors.
             Vector3.Cross(ref worldAxisA, ref worldConstrainedAxis1, out worldConstrainedAxis2);
 
-            localConstrainedAxis1 = Quaternion.Transform(worldConstrainedAxis1, Quaternion.Conjugate(ConnectionA.Orientation));
-            localConstrainedAxis2 = Quaternion.Transform(worldConstrainedAxis2, Quaternion.Conjugate(ConnectionA.Orientation));
+            localConstrainedAxis1 = Vector3.Transform(worldConstrainedAxis1, Quaternion.Conjugate(ConnectionA.Orientation));
+            localConstrainedAxis2 = Vector3.Transform(worldConstrainedAxis2, Quaternion.Conjugate(ConnectionA.Orientation));
         }
 
         /// <summary>
@@ -125,15 +126,15 @@ namespace BEPUik
             //to be nonzero, so the normalization requires protection.
 
             Vector3 worldAxisA, worldAxisB;
-            Quaternion.Transform(ref localFreeAxisA, ref ConnectionA.Orientation, out worldAxisA);
-            Quaternion.Transform(ref localFreeAxisB, ref ConnectionB.Orientation, out worldAxisB);
+            Vector3.Transform(ref localFreeAxisA, ref ConnectionA.Orientation, out worldAxisA);
+            Vector3.Transform(ref localFreeAxisB, ref ConnectionB.Orientation, out worldAxisB);
 
             Vector3 error;
             Vector3.Cross(ref worldAxisA, ref worldAxisB, out error);
 
             Vector3 worldConstrainedAxis1, worldConstrainedAxis2;
-            Quaternion.Transform(ref localConstrainedAxis1, ref ConnectionA.Orientation, out worldConstrainedAxis1);
-            Quaternion.Transform(ref localConstrainedAxis2, ref ConnectionA.Orientation, out worldConstrainedAxis2);
+            Vector3.Transform(ref localConstrainedAxis1, ref ConnectionA.Orientation, out worldConstrainedAxis1);
+            Vector3.Transform(ref localConstrainedAxis2, ref ConnectionA.Orientation, out worldConstrainedAxis2);
 
 
             angularJacobianA = new Matrix3x3

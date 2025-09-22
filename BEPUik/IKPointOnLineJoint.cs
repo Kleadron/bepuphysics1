@@ -1,5 +1,6 @@
 ﻿using System;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUik
 {
@@ -39,8 +40,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 LineAnchor
         {
-            get { return ConnectionA.Position + Quaternion.Transform(LocalLineAnchor, ConnectionA.Orientation); }
-            set { LocalLineAnchor = Quaternion.Transform(value - ConnectionA.Position, Quaternion.Conjugate(ConnectionA.Orientation)); }
+            get { return ConnectionA.Position + Vector3.Transform(LocalLineAnchor, ConnectionA.Orientation); }
+            set { LocalLineAnchor = Vector3.Transform(value - ConnectionA.Position, Quaternion.Conjugate(ConnectionA.Orientation)); }
         }
 
         /// <summary>
@@ -49,8 +50,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 LineDirection
         {
-            get { return Quaternion.Transform(localLineDirection, ConnectionA.Orientation); }
-            set { LocalLineDirection = Quaternion.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation)); }
+            get { return Vector3.Transform(localLineDirection, ConnectionA.Orientation); }
+            set { LocalLineDirection = Vector3.Transform(value, Quaternion.Conjugate(ConnectionA.Orientation)); }
         }
 
         /// <summary>
@@ -58,8 +59,8 @@ namespace BEPUik
         /// </summary>
         public Vector3 AnchorB
         {
-            get { return ConnectionB.Position + Quaternion.Transform(LocalAnchorB, ConnectionB.Orientation); }
-            set { LocalAnchorB = Quaternion.Transform(value - ConnectionB.Position, Quaternion.Conjugate(ConnectionB.Orientation)); }
+            get { return ConnectionB.Position + Vector3.Transform(LocalAnchorB, ConnectionB.Orientation); }
+            set { LocalAnchorB = Vector3.Transform(value - ConnectionB.Position, Quaternion.Conjugate(ConnectionB.Orientation)); }
         }
 
         private Vector3 localRestrictedAxis1, localRestrictedAxis2;
@@ -104,17 +105,17 @@ namespace BEPUik
 
             //Transform local stuff into world space
             Vector3 worldRestrictedAxis1, worldRestrictedAxis2;
-            Quaternion.Transform(ref localRestrictedAxis1, ref ConnectionA.Orientation, out worldRestrictedAxis1);
-            Quaternion.Transform(ref localRestrictedAxis2, ref ConnectionA.Orientation, out worldRestrictedAxis2);
+            Vector3.Transform(ref localRestrictedAxis1, ref ConnectionA.Orientation, out worldRestrictedAxis1);
+            Vector3.Transform(ref localRestrictedAxis2, ref ConnectionA.Orientation, out worldRestrictedAxis2);
 
             Vector3 worldLineAnchor;
-            Quaternion.Transform(ref LocalLineAnchor, ref ConnectionA.Orientation, out worldLineAnchor);
+            Vector3.Transform(ref LocalLineAnchor, ref ConnectionA.Orientation, out worldLineAnchor);
             Vector3.Add(ref worldLineAnchor, ref ConnectionA.Position, out worldLineAnchor);
             Vector3 lineDirection;
-            Quaternion.Transform(ref localLineDirection, ref ConnectionA.Orientation, out lineDirection);
+            Vector3.Transform(ref localLineDirection, ref ConnectionA.Orientation, out lineDirection);
 
             Vector3 rB;
-            Quaternion.Transform(ref LocalAnchorB, ref ConnectionB.Orientation, out rB);
+            Vector3.Transform(ref LocalAnchorB, ref ConnectionB.Orientation, out rB);
             Vector3 worldPoint;
             Vector3.Add(ref rB, ref ConnectionB.Position, out worldPoint);
 

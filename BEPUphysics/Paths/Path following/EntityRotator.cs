@@ -4,6 +4,7 @@ using BEPUphysics.Constraints.TwoEntity.Motors;
 using BEPUphysics.Entities;
 using BEPUphysics.UpdateableSystems;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
  
 
 namespace BEPUphysics.Paths.PathFollowing
@@ -90,7 +91,7 @@ namespace BEPUphysics.Paths.PathFollowing
             Vector3 axis;
             float angle;
             //Turn this into an axis-angle representation.
-            Quaternion.GetAxisAngleFromQuaternion(ref errorOrientation, out axis, out angle);
+            Toolbox.GetAxisAngleFromQuaternion(ref errorOrientation, out axis, out angle);
             Vector3.Multiply(ref axis, angle / dt, out axis);
             return axis;
         }

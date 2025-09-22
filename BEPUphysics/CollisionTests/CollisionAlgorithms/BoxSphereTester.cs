@@ -1,6 +1,7 @@
 ﻿using System;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
  
 using BEPUphysics.Settings;
 
@@ -77,7 +78,7 @@ namespace BEPUphysics.CollisionTests.CollisionAlgorithms
                     contact.PenetrationDepth = penetrationDepths.Z;
                 }
                 contact.PenetrationDepth += sphere.collisionMargin;
-                Quaternion.Transform(ref contact.Normal, ref boxTransform.Orientation, out contact.Normal);
+                Vector3.Transform(ref contact.Normal, ref boxTransform.Orientation, out contact.Normal);
             }
 
 

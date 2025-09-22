@@ -2,6 +2,7 @@
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.CollisionShapes.ConvexShapes
 {
@@ -309,7 +310,7 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         public Vector3 GetNormal(RigidTransform transform)
         {
             Vector3 normal = GetLocalNormal();
-            Quaternion.Transform(ref normal, ref transform.Orientation, out normal);
+            Vector3.Transform(ref normal, ref transform.Orientation, out normal);
             return normal;
         }
 
@@ -328,15 +329,15 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
             Ray localRay;
             Quaternion conjugate;
             Quaternion.Conjugate(ref transform.Orientation, out conjugate);
-            Quaternion.Transform(ref ray.Direction, ref conjugate, out localRay.Direction);
+            Vector3.Transform(ref ray.Direction, ref conjugate, out localRay.Direction);
             Vector3.Subtract(ref ray.Position, ref transform.Position, out localRay.Position);
-            Quaternion.Transform(ref localRay.Position, ref conjugate, out localRay.Position);
+            Vector3.Transform(ref localRay.Position, ref conjugate, out localRay.Position);
 
             bool toReturn = Toolbox.FindRayTriangleIntersection(ref localRay, maximumLength, sidedness, ref vA, ref vB, ref vC, out hit);
             //Move the hit back into world space.
             Vector3.Multiply(ref ray.Direction, hit.T, out hit.Location);
             Vector3.Add(ref ray.Position, ref hit.Location, out hit.Location);
-            Quaternion.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
+            Vector3.Transform(ref hit.Normal, ref transform.Orientation, out hit.Normal);
             return toReturn;
         }
 

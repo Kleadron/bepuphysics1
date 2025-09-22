@@ -2,6 +2,7 @@ using System;
 using BEPUphysics.Entities;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Constraints.TwoEntity.Joints
 {
@@ -116,7 +117,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             set
             {
                 anchorA = value;
-                localAnchorA = Quaternion.Transform(anchorA - connectionA.position, Quaternion.Conjugate(connectionA.orientation));
+                localAnchorA = Vector3.Transform(anchorA - connectionA.position, Quaternion.Conjugate(connectionA.orientation));
             }
         }
 
@@ -129,7 +130,7 @@ namespace BEPUphysics.Constraints.TwoEntity.Joints
             set
             {
                 anchorB = value;
-                localAnchorB = Quaternion.Transform(anchorB - connectionB.position, Quaternion.Conjugate(connectionB.orientation));
+                localAnchorB = Vector3.Transform(anchorB - connectionB.position, Quaternion.Conjugate(connectionB.orientation));
             }
         }
 

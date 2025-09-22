@@ -4,6 +4,7 @@ using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.CollisionTests.CollisionAlgorithms.GJK;
  
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.CollisionTests.CollisionAlgorithms
 {

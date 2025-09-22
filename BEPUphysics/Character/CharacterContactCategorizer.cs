@@ -7,6 +7,7 @@ using BEPUphysics.CollisionRuleManagement;
 using BEPUphysics.CollisionTests;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.Character
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BEPUphysics.BroadPhaseEntries;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.DataStructures;
 using BEPUutilities.ResourceManagement;
 
@@ -120,10 +121,12 @@ namespace BEPUphysics.BroadPhaseSystems.Hierarchies
 
         internal override void GetOverlaps(ref Ray ray, float maximumLength, IList<BroadPhaseEntry> outputOverlappedElements)
         {
-            float result;
-            if (ray.Intersects(ref childA.BoundingBox, out result) && result < maximumLength)
+            float? result;
+            ray.Intersects(ref childA.BoundingBox, out result);
+            if (result != null && result < maximumLength)
                 childA.GetOverlaps(ref ray, maximumLength, outputOverlappedElements);
-            if (ray.Intersects(ref childB.BoundingBox, out result) && result < maximumLength)
+            ray.Intersects(ref childB.BoundingBox, out result);
+            if (result != null && result < maximumLength)
                 childB.GetOverlaps(ref ray, maximumLength, outputOverlappedElements);
         }
 

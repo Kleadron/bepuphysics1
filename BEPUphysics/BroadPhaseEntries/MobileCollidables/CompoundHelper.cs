@@ -5,6 +5,7 @@ using System.Text;
 using BEPUphysics.CollisionShapes;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.Entities;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 
@@ -98,8 +99,8 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
             Vector3 originalPosition = a.position;
 
             b.Orientation = a.Orientation;
-            Vector3 offsetA = Quaternion.Transform(localOffsetA, a.Orientation);
-            Vector3 offsetB = Quaternion.Transform(localOffsetB, a.Orientation);
+            Vector3 offsetA = Vector3.Transform(localOffsetA, a.Orientation);
+            Vector3 offsetB = Vector3.Transform(localOffsetB, a.Orientation);
             a.Position = originalPosition + offsetA;
             b.Position = originalPosition + offsetB;
 
@@ -261,7 +262,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                 Vector3 transformedOffset;
                 Quaternion conjugate;
                 Quaternion.Conjugate(ref entry.LocalTransform.Orientation, out conjugate);
-                Quaternion.Transform(ref offsetA, ref conjugate, out transformedOffset);
+                Vector3.Transform(ref offsetA, ref conjugate, out transformedOffset);
                 child.CollisionInformation.localPosition = transformedOffset;
                 Matrix3x3 contribution;
                 CompoundShape.TransformContribution(ref entry.LocalTransform, ref distributionInfoA.Center, ref entry.Shape.volumeDistribution, entry.Weight, out contribution);
@@ -274,7 +275,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                 Vector3 transformedOffset;
                 Quaternion conjugate;
                 Quaternion.Conjugate(ref entry.LocalTransform.Orientation, out conjugate);
-                Quaternion.Transform(ref offsetB, ref conjugate, out transformedOffset);
+                Vector3.Transform(ref offsetB, ref conjugate, out transformedOffset);
                 child.CollisionInformation.localPosition = transformedOffset;
                 Matrix3x3 contribution;
                 CompoundShape.TransformContribution(ref entry.LocalTransform, ref distributionInfoB.Center, ref entry.Shape.volumeDistribution, entry.Weight, out contribution);
@@ -312,7 +313,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
 
             Vector3 originalPosition = compound.position;
 
-            Vector3 offset = Quaternion.Transform(localOffset, compound.orientation);
+            Vector3 offset = Vector3.Transform(localOffset, compound.orientation);
             compound.Position = originalPosition + offset;
 
             Vector3 originalLinearVelocity = compound.linearVelocity;
@@ -452,7 +453,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                 Vector3 transformedOffset;
                 Quaternion conjugate;
                 Quaternion.Conjugate(ref entry.LocalTransform.Orientation, out conjugate);
-                Quaternion.Transform(ref offset, ref conjugate, out transformedOffset);
+                Vector3.Transform(ref offset, ref conjugate, out transformedOffset);
                 child.CollisionInformation.localPosition = transformedOffset;
                 var contribution = childContributions[child.shapeIndex];
                 CompoundShape.TransformContribution(ref entry.LocalTransform, ref distributionInfo.Center, ref contribution.VolumeDistribution, entry.Weight, out contribution.VolumeDistribution);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BEPUphysics.CollisionTests.Manifolds;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUutilities.DataStructures;
 
 namespace BEPUphysics.CollisionShapes

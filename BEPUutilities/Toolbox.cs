@@ -1407,8 +1407,222 @@ namespace BEPUutilities
         #endregion
 
 
+        #region Quaternion
+        /// <summary>
+        /// Computes the angle change represented by a normalized quaternion.
+        /// </summary>
+        /// <param name="q">Quaternion to be converted.</param>
+        /// <returns>Angle around the axis represented by the quaternion.</returns>
+        public static float GetAngleFromQuaternion(ref Quaternion q)
+        {
+            float qw = Math.Abs(q.W);
+            if (qw > 1)
+                return 0;
+            return 2 * (float)Math.Acos(qw);
+        }
+
+        /// <summary>
+        /// Computes the axis angle representation of a normalized quaternion.
+        /// </summary>
+        /// <param name="q">Quaternion to be converted.</param>
+        /// <param name="axis">Axis represented by the quaternion.</param>
+        /// <param name="angle">Angle around the axis represented by the quaternion.</param>
+        public static void GetAxisAngleFromQuaternion(ref Quaternion q, out Vector3 axis, out float angle)
+        {
+#if !WINDOWS
+                    axis = new Vector3();
+#endif
+            float qw = q.W;
+            if (qw > 0)
+            {
+                axis.X = q.X;
+                axis.Y = q.Y;
+                axis.Z = q.Z;
+            }
+            else
+            {
+                axis.X = -q.X;
+                axis.Y = -q.Y;
+                axis.Z = -q.Z;
+                qw = -qw;
+            }
+
+            float lengthSquared = axis.LengthSquared();
+            if (lengthSquared > 1e-14f)
+            {
+                Vector3.Divide(ref axis, (float)Math.Sqrt(lengthSquared), out axis);
+                angle = 2 * (float)Math.Acos(MathHelper.Clamp(qw, -1, 1));
+            }
+            else
+            {
+                axis = Toolbox.UpVector;
+                angle = 0;
+            }
+        }
+
+        /// <summary>
+        /// Computes the quaternion rotation between two normalized vectors.
+        /// </summary>
+        /// <param name="v1">First unit-length vector.</param>
+        /// <param name="v2">Second unit-length vector.</param>
+        /// <param name="q">Quaternion representing the rotation from v1 to v2.</param>
+        public static void GetQuaternionBetweenNormalizedVectors(ref Vector3 v1, ref Vector3 v2, out Quaternion q)
+        {
+            float dot;
+            Vector3.Dot(ref v1, ref v2, out dot);
+            //For non-normal vectors, the multiplying the axes length squared would be necessary:
+            //float w = dot + (float)Math.Sqrt(v1.LengthSquared() * v2.LengthSquared());
+            if (dot < -0.9999f) //parallel, opposing direction
+            {
+                //If this occurs, the rotation required is ~180 degrees.
+                //The problem is that we could choose any perpendicular axis for the rotation. It's not uniquely defined.
+                //The solution is to pick an arbitrary perpendicular axis.
+                //Project onto the plane which has the lowest component magnitude.
+                //On that 2d plane, perform a 90 degree rotation.
+                float absX = Math.Abs(v1.X);
+                float absY = Math.Abs(v1.Y);
+                float absZ = Math.Abs(v1.Z);
+                if (absX < absY && absX < absZ)
+                    q = new Quaternion(0, -v1.Z, v1.Y, 0);
+                else if (absY < absZ)
+                    q = new Quaternion(-v1.Z, 0, v1.X, 0);
+                else
+                    q = new Quaternion(-v1.Y, v1.X, 0, 0);
+            }
+            else
+            {
+                Vector3 axis;
+                Vector3.Cross(ref v1, ref v2, out axis);
+                q = new Quaternion(axis.X, axis.Y, axis.Z, dot + 1);
+            }
+            q.Normalize();
+        }
+
+        //The following two functions are highly similar, but it's a bit of a brain teaser to phrase one in terms of the other.
+        //Providing both simplifies things.
+
+        /// <summary>
+        /// Computes the rotation from the start orientation to the end orientation such that end = Quaternion.Concatenate(start, relative).
+        /// </summary>
+        /// <param name="start">Starting orientation.</param>
+        /// <param name="end">Ending orientation.</param>
+        /// <param name="relative">Relative rotation from the start to the end orientation.</param>
+        public static void GetRelativeRotation(ref Quaternion start, ref Quaternion end, out Quaternion relative)
+        {
+            Quaternion startInverse;
+            Quaternion.Conjugate(ref start, out startInverse);
+            Quaternion.Concatenate(ref startInverse, ref end, out relative);
+        }
 
 
+        /// <summary>
+        /// Transforms the rotation into the local space of the target basis such that rotation = Quaternion.Concatenate(localRotation, targetBasis)
+        /// </summary>
+        /// <param name="rotation">Rotation in the original frame of reference.</param>
+        /// <param name="targetBasis">Basis in the original frame of reference to transform the rotation into.</param>
+        /// <param name="localRotation">Rotation in the local space of the target basis.</param>
+        public static void GetLocalRotation(ref Quaternion rotation, ref Quaternion targetBasis, out Quaternion localRotation)
+        {
+            Quaternion basisInverse;
+            Quaternion.Conjugate(ref targetBasis, out basisInverse);
+            Quaternion.Concatenate(ref rotation, ref basisInverse, out localRotation);
+        }
+        #endregion
+
+
+        #region Vector3
+        /// <summary>
+        /// Transforms a vector using a quaternion. Specialized for x,0,0 vectors.
+        /// </summary>
+        /// <param name="x">X component of the vector to transform.</param>
+        /// <param name="rotation">Rotation to apply to the vector.</param>
+        /// <param name="result">Transformed vector.</param>
+        public static void TransformX(float x, ref Quaternion rotation, out Vector3 result)
+        {
+            //This operation is an optimized-down version of v' = q * v * q^-1.
+            //The expanded form would be to treat v as an 'axis only' quaternion
+            //and perform standard quaternion multiplication.  Assuming q is normalized,
+            //q^-1 can be replaced by a conjugation.
+            float y2 = rotation.Y + rotation.Y;
+            float z2 = rotation.Z + rotation.Z;
+            float xy2 = rotation.X * y2;
+            float xz2 = rotation.X * z2;
+            float yy2 = rotation.Y * y2;
+            float zz2 = rotation.Z * z2;
+            float wy2 = rotation.W * y2;
+            float wz2 = rotation.W * z2;
+            //Defer the component setting since they're used in computation.
+            float transformedX = x * (1f - yy2 - zz2);
+            float transformedY = x * (xy2 + wz2);
+            float transformedZ = x * (xz2 - wy2);
+            result.X = transformedX;
+            result.Y = transformedY;
+            result.Z = transformedZ;
+
+        }
+
+        /// <summary>
+        /// Transforms a vector using a quaternion. Specialized for 0,y,0 vectors.
+        /// </summary>
+        /// <param name="y">Y component of the vector to transform.</param>
+        /// <param name="rotation">Rotation to apply to the vector.</param>
+        /// <param name="result">Transformed vector.</param>
+        public static void TransformY(float y, ref Quaternion rotation, out Vector3 result)
+        {
+            //This operation is an optimized-down version of v' = q * v * q^-1.
+            //The expanded form would be to treat v as an 'axis only' quaternion
+            //and perform standard quaternion multiplication.  Assuming q is normalized,
+            //q^-1 can be replaced by a conjugation.
+            float x2 = rotation.X + rotation.X;
+            float y2 = rotation.Y + rotation.Y;
+            float z2 = rotation.Z + rotation.Z;
+            float xx2 = rotation.X * x2;
+            float xy2 = rotation.X * y2;
+            float yz2 = rotation.Y * z2;
+            float zz2 = rotation.Z * z2;
+            float wx2 = rotation.W * x2;
+            float wz2 = rotation.W * z2;
+            //Defer the component setting since they're used in computation.
+            float transformedX = y * (xy2 - wz2);
+            float transformedY = y * (1f - xx2 - zz2);
+            float transformedZ = y * (yz2 + wx2);
+            result.X = transformedX;
+            result.Y = transformedY;
+            result.Z = transformedZ;
+
+        }
+
+        /// <summary>
+        /// Transforms a vector using a quaternion. Specialized for 0,0,z vectors.
+        /// </summary>
+        /// <param name="z">Z component of the vector to transform.</param>
+        /// <param name="rotation">Rotation to apply to the vector.</param>
+        /// <param name="result">Transformed vector.</param>
+        public static void TransformZ(float z, ref Quaternion rotation, out Vector3 result)
+        {
+            //This operation is an optimized-down version of v' = q * v * q^-1.
+            //The expanded form would be to treat v as an 'axis only' quaternion
+            //and perform standard quaternion multiplication.  Assuming q is normalized,
+            //q^-1 can be replaced by a conjugation.
+            float x2 = rotation.X + rotation.X;
+            float y2 = rotation.Y + rotation.Y;
+            float z2 = rotation.Z + rotation.Z;
+            float xx2 = rotation.X * x2;
+            float xz2 = rotation.X * z2;
+            float yy2 = rotation.Y * y2;
+            float yz2 = rotation.Y * z2;
+            float wx2 = rotation.W * x2;
+            float wy2 = rotation.W * y2;
+            //Defer the component setting since they're used in computation.
+            float transformedX = z * (xz2 + wy2);
+            float transformedY = z * (yz2 - wx2);
+            float transformedZ = z * (1f - xx2 - yy2);
+            result.X = transformedX;
+            result.Y = transformedY;
+            result.Z = transformedZ;
+
+        }
+        #endregion
 
         #region Miscellaneous
 

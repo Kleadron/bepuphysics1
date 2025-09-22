@@ -2,6 +2,7 @@
 using BEPUphysics.CollisionTests;
 using BEPUphysics.Settings;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using System;
 using BEPUutilities.DataStructures;
 

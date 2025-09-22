@@ -1,6 +1,7 @@
 ﻿using System;
 using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.Settings;
 
 namespace BEPUphysics.CollisionShapes.ConvexShapes
@@ -72,10 +73,10 @@ namespace BEPUphysics.CollisionShapes.ConvexShapes
         {
             Quaternion conjugate;
             Quaternion.Conjugate(ref shapeTransform.Orientation, out conjugate);
-            Quaternion.Transform(ref direction, ref conjugate, out direction);
+            Vector3.Transform(ref direction, ref conjugate, out direction);
             GetLocalExtremePointWithoutMargin(ref direction, out extremePoint);
 
-            Quaternion.Transform(ref extremePoint, ref shapeTransform.Orientation, out extremePoint);
+            Vector3.Transform(ref extremePoint, ref shapeTransform.Orientation, out extremePoint);
             Vector3.Add(ref extremePoint, ref shapeTransform.Position, out extremePoint);
         }
 

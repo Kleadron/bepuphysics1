@@ -4,6 +4,7 @@ using System;
 using BEPUphysics.CollisionTests.CollisionAlgorithms;
 using BEPUutilities.DataStructures;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.CollisionShapes.ConvexShapes;
 
 namespace BEPUphysics.NarrowPhaseSystems.Pairs

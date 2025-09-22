@@ -1,6 +1,7 @@
 ﻿
 using BEPUphysics.DataStructures;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUphysics.CollisionShapes
 {

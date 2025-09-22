@@ -3,6 +3,7 @@ using BEPUphysics.Entities;
 using BEPUphysics.UpdateableSystems;
 
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 using BEPUphysics.Materials;
 using BEPUphysics.BroadPhaseEntries;
 
@@ -290,7 +291,7 @@ namespace BEPUphysics.Vehicle
                 {
                     Quaternion conjugate;
                     Quaternion.Conjugate(ref Vehicle.Body.orientation, out conjugate);
-                    Quaternion.Transform(ref worldForwardDirection, ref conjugate, out localForwardDirection);
+                    Vector3.Transform(ref worldForwardDirection, ref conjugate, out localForwardDirection);
                 }
                 else
                     localForwardDirection = worldForwardDirection;
@@ -301,7 +302,7 @@ namespace BEPUphysics.Vehicle
         internal void PreStep(float dt)
         {
             Matrix.CreateFromAxisAngle(ref suspension.localDirection, shape.steeringAngle, out shape.steeringTransform);
-            Matrix.TransformNormal(ref localForwardDirection, ref shape.steeringTransform, out worldForwardDirection);
+            Vector3.TransformNormal(ref localForwardDirection, ref shape.steeringTransform, out worldForwardDirection);
             Matrix3x3.Transform(ref worldForwardDirection, ref Vehicle.Body.orientationMatrix, out worldForwardDirection);
             if (HasSupport)
             {
