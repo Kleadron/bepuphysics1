@@ -86,7 +86,9 @@ namespace BEPUphysicsDemos
                                                     typeof (StaticGroupDemo),
                                                     typeof (EntityConstructionDemo),
                                                     typeof (SpiderDemo),
+#if WINDOWS
                                                     typeof (SelfCollidingClothDemo),
+#endif
                                                     typeof (EarthquakeDemo),
                                                     typeof (BridgeDemo),
                                                     typeof (ActionFigureDemo),
@@ -99,7 +101,9 @@ namespace BEPUphysicsDemos
                                                     typeof (CollisionFilteringDemo),
                                                     typeof (SpaceshipDemo),
                                                     typeof (SleepModeDemo),
+#if WINDOWS
                                                     typeof (BroadPhaseDemo),
+#endif
                                                     typeof (BuoyancyDemo),
                                                     typeof (TornadoDemo),
                                                     typeof (PlanetDemo),
@@ -122,6 +126,9 @@ namespace BEPUphysicsDemos
             Camera = new Camera(BEPUutilities.Vector3.Zero, 0, 0, BEPUutilities.Matrix.CreatePerspectiveFieldOfViewRH(MathHelper.PiOver4, Graphics.PreferredBackBufferWidth / (float)Graphics.PreferredBackBufferHeight, .1f, 10000));
 
             Exiting += DemosGameExiting;
+
+            // fixes the guide lagging
+            InactiveSleepTime = TimeSpan.Zero;
         }
 
         private void DemosGameExiting(object sender, EventArgs e)
