@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BEPUutilities.DataStructures;
 using BEPUutilities;
+using Microsoft.Xna.Framework;
 
 namespace BEPUutilities.ResourceManagement
 {

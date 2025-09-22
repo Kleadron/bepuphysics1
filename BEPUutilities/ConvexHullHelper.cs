@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BEPUutilities;
 using BEPUutilities.DataStructures;
 using BEPUutilities.ResourceManagement;
+using Microsoft.Xna.Framework;
 
 namespace BEPUutilities
 {

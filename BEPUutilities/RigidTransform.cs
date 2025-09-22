@@ -1,5 +1,6 @@
-﻿ 
+﻿
 
+using Microsoft.Xna.Framework;
 namespace BEPUutilities
 {
     ///<summary>
@@ -95,7 +96,7 @@ namespace BEPUutilities
         public static void Invert(ref RigidTransform transform, out RigidTransform inverse)
         {
             Quaternion.Conjugate(ref transform.Orientation, out inverse.Orientation);
-            Quaternion.Transform(ref transform.Position, ref inverse.Orientation, out inverse.Position);
+            Vector3.Transform(ref transform.Position, ref inverse.Orientation, out inverse.Position);
             Vector3.Negate(ref inverse.Position, out inverse.Position);
         }
 
@@ -108,7 +109,7 @@ namespace BEPUutilities
         public static void Multiply(ref RigidTransform a, ref RigidTransform b, out RigidTransform combined)
         {
             Vector3 intermediate;
-            Quaternion.Transform(ref a.Position, ref b.Orientation, out intermediate);
+            Vector3.Transform(ref a.Position, ref b.Orientation, out intermediate);
             Vector3.Add(ref intermediate, ref b.Position, out combined.Position);
             Quaternion.Concatenate(ref a.Orientation, ref b.Orientation, out combined.Orientation);
 
@@ -135,7 +136,7 @@ namespace BEPUutilities
         public static void Transform(ref Vector3 position, ref RigidTransform transform, out Vector3 result)
         {
             Vector3 intermediate;
-            Quaternion.Transform(ref position, ref transform.Orientation, out intermediate);
+            Vector3.Transform(ref position, ref transform.Orientation, out intermediate);
             Vector3.Add(ref intermediate, ref transform.Position, out result);
         }
 
@@ -152,7 +153,7 @@ namespace BEPUutilities
             Vector3 intermediate;
             Vector3.Subtract(ref position, ref transform.Position, out intermediate);
             Quaternion.Conjugate(ref transform.Orientation, out orientation);
-            Quaternion.Transform(ref intermediate, ref orientation, out result);
+            Vector3.Transform(ref intermediate, ref orientation, out result);
         }
 
 
