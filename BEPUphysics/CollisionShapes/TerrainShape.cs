@@ -460,7 +460,9 @@ namespace BEPUphysics.CollisionShapes
         /// <param name="normal">Non-normalized local space normal at the given indices.</param>
         public void GetLocalNormal(int columnIndex, int rowIndex, out Vector3 normal)
         {
-
+#if !WINDOWS
+            normal = new Vector3();
+#endif
             float topHeight = heights[columnIndex, Math.Min(rowIndex + 1, heights.GetLength(1) - 1)];
             float bottomHeight = heights[columnIndex, Math.Max(rowIndex - 1, 0)];
             float rightHeight = heights[Math.Min(columnIndex + 1, heights.GetLength(0) - 1), rowIndex];

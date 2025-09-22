@@ -700,7 +700,7 @@ namespace BEPUphysics.Character
             get
             {
 
-                Vector3 impulse;
+                Vector3 impulse = new Vector3();
                 impulse.X = accumulatedImpulse.X * linearJacobianA1.X + accumulatedImpulse.Y * linearJacobianA2.X;
                 impulse.Y = accumulatedImpulse.X * linearJacobianA1.Y + accumulatedImpulse.Y * linearJacobianA2.Y;
                 impulse.Z = accumulatedImpulse.X * linearJacobianA1.Z + accumulatedImpulse.Y * linearJacobianA2.Z;

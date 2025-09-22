@@ -58,6 +58,9 @@ namespace BEPUphysics.CollisionShapes
         /// <param name="result">Contains the transformed X coordinate of input X, transformed Y coordinate of input Y, and transformed Z coordinate of input Z.</param>
         protected void TransformLocalExtremePoints(ref Vector3 x, ref Vector3 y, ref Vector3 z, ref Matrix3x3 transform, out Vector3 result)
         {
+#if !WINDOWS
+            result = new Vector3();
+#endif
             result.X = x.X * transform.M11 + x.Y * transform.M21 + x.Z * transform.M31;
             result.Y = y.X * transform.M12 + y.Y * transform.M22 + y.Z * transform.M32;
             result.Z = z.X * transform.M13 + z.Y * transform.M23 + z.Z * transform.M33;

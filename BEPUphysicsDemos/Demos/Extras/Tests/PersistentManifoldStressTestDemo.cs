@@ -42,7 +42,7 @@ namespace BEPUphysicsDemos.Demos.Extras.Tests
             var random = new Random(5);
             for (int i = 0; i < 5000; ++i)
             {
-                Vector3 position;
+                Vector3 position = new Vector3();
                 position.X = spawnVolume.Min.X + (float)random.NextDouble() * span.X;
                 position.Y = spawnVolume.Min.Y + (float)random.NextDouble() * span.Y;
                 position.Z = spawnVolume.Min.Z + (float)random.NextDouble() * span.Z;

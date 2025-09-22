@@ -1539,6 +1539,9 @@ namespace BEPUutilities
         /// <param name="result">Transformed vector.</param>
         public static void TransformX(float x, ref Quaternion rotation, out Vector3 result)
         {
+#if !WINDOWS
+            result = new Vector3();
+#endif
             //This operation is an optimized-down version of v' = q * v * q^-1.
             //The expanded form would be to treat v as an 'axis only' quaternion
             //and perform standard quaternion multiplication.  Assuming q is normalized,
@@ -1569,6 +1572,9 @@ namespace BEPUutilities
         /// <param name="result">Transformed vector.</param>
         public static void TransformY(float y, ref Quaternion rotation, out Vector3 result)
         {
+#if !WINDOWS
+            result = new Vector3();
+#endif
             //This operation is an optimized-down version of v' = q * v * q^-1.
             //The expanded form would be to treat v as an 'axis only' quaternion
             //and perform standard quaternion multiplication.  Assuming q is normalized,
@@ -1600,6 +1606,9 @@ namespace BEPUutilities
         /// <param name="result">Transformed vector.</param>
         public static void TransformZ(float z, ref Quaternion rotation, out Vector3 result)
         {
+#if !WINDOWS
+            result = new Vector3();
+#endif
             //This operation is an optimized-down version of v' = q * v * q^-1.
             //The expanded form would be to treat v as an 'axis only' quaternion
             //and perform standard quaternion multiplication.  Assuming q is normalized,
