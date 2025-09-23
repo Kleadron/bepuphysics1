@@ -123,12 +123,14 @@ namespace BEPUphysicsDemos
 
             Graphics.PreferredBackBufferWidth = 1280;
             Graphics.PreferredBackBufferHeight = 720;
-            Camera = new Camera(Vector3.Zero, 0, 0, Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Graphics.PreferredBackBufferWidth / (float)Graphics.PreferredBackBufferHeight, .1f, 10000));
+            Camera = new Camera(Vector3.Zero, 0, 0, Matrix.Identity);
 
             Exiting += DemosGameExiting;
 
             // fixes the guide lagging
             InactiveSleepTime = TimeSpan.Zero;
+            Window.AllowUserResizing = true;
+            IsMouseVisible = true;
         }
 
         private void DemosGameExiting(object sender, EventArgs e)
@@ -267,6 +269,10 @@ namespace BEPUphysicsDemos
             PreviousMouseInput = MouseInput;
             MouseInput = Mouse.GetState();
 
+            // don't grab the mouse if the window isn't focused
+            if (!IsActive)
+                IsMouseVisible = true;
+
             //Keep the mouse within the screen
             if (!IsMouseVisible)
                 Mouse.SetPosition(200, 200);
@@ -401,6 +407,9 @@ namespace BEPUphysicsDemos
         {
             GraphicsDevice.Clear(new Color(.41f, .41f, .45f, 1));
 
+            // Projection matrix calculation moved here for resizable window support.
+            Camera.ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, GraphicsDevice.Viewport.AspectRatio, .1f, 10000);
+
             var viewMatrix = Camera.ViewMatrix;
             var projectionMatrix = Camera.ProjectionMatrix;
             if (displayEntities)
@@ -466,7 +475,7 @@ namespace BEPUphysicsDemos
 #if !WINDOWS
                 DataTextDrawer.Draw("Press Start for Controls", new Vector2(50, bottom - 82));
 #else
-                DataTextDrawer.Draw("Press F1 for Controls", new Vector2(50, bottom - 82));
+                DataTextDrawer.Draw("Press F1 for Controls / Tab to lock cursor", new Vector2(50, bottom - 82));
 #endif
 
                 TinyTextDrawer.Draw("Current Simulation: ", currentSimulationIndex, new Vector2(right - 200, bottom - 100));

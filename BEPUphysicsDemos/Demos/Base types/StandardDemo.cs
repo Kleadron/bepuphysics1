@@ -90,72 +90,74 @@ namespace BEPUphysicsDemos.Demos
 
         public override void Update(float dt)
         {
-            #region Kapow-Shooter Input
+            if (Game.IsActive)
+            {
+                #region Kapow-Shooter Input
 
-            //Update kapow-shooter
-            if (!vehicle.IsActive)
+                //Update kapow-shooter
+                if (!vehicle.IsActive)
 #if !WINDOWS
                 if (Game.GamePadInput.IsButtonDown(Buttons.RightTrigger))
 #else
-                if (Game.MouseInput.LeftButton == ButtonState.Pressed)
+                    if (Game.MouseInput.LeftButton == ButtonState.Pressed)
 #endif
-                {
-                    if (character.IsActive) //Keep the ball out of the character's body if its being used.
-                        kapow.Position = Game.Camera.Position + Game.Camera.WorldMatrix.Forward * 3;
-                    else
-                        kapow.Position = Game.Camera.Position + Game.Camera.WorldMatrix.Forward;
-                    kapow.AngularVelocity = Vector3.Zero;
-                    kapow.LinearVelocity = Game.Camera.WorldMatrix.Forward * 30;
-                }
+                    {
+                        if (character.IsActive) //Keep the ball out of the character's body if its being used.
+                            kapow.Position = Game.Camera.Position + Game.Camera.WorldMatrix.Forward * 3;
+                        else
+                            kapow.Position = Game.Camera.Position + Game.Camera.WorldMatrix.Forward;
+                        kapow.AngularVelocity = Vector3.Zero;
+                        kapow.LinearVelocity = Game.Camera.WorldMatrix.Forward * 30;
+                    }
 
-            #endregion
+                #endregion
 
-            #region Grabber Input
+                #region Grabber Input
 
-            //Update grabber
+                //Update grabber
 
 #if !WINDOWS
             if (Game.GamePadInput.IsButtonDown(Buttons.RightShoulder) && !grabber.IsUpdating)
 #else
-            if (Game.MouseInput.RightButton == ButtonState.Pressed && !grabber.IsGrabbing)
+                if (Game.MouseInput.RightButton == ButtonState.Pressed && !grabber.IsGrabbing)
 #endif
-            {
-                //Find the earliest ray hit
-                RayCastResult raycastResult;
-                if (Space.RayCast(new Ray(Game.Camera.Position, Game.Camera.WorldMatrix.Forward), 1000, rayCastFilter, out raycastResult))
                 {
-                    var entityCollision = raycastResult.HitObject as EntityCollidable;
-                    //If there's a valid ray hit, then grab the connected object!
-                    if (entityCollision != null && entityCollision.Entity.IsDynamic)
+                    //Find the earliest ray hit
+                    RayCastResult raycastResult;
+                    if (Space.RayCast(new Ray(Game.Camera.Position, Game.Camera.WorldMatrix.Forward), 1000, rayCastFilter, out raycastResult))
                     {
-                        grabber.Setup(entityCollision.Entity, raycastResult.HitData.Location);
-                        grabberGraphic.IsDrawing = true;
-                        grabDistance = raycastResult.HitData.T;
+                        var entityCollision = raycastResult.HitObject as EntityCollidable;
+                        //If there's a valid ray hit, then grab the connected object!
+                        if (entityCollision != null && entityCollision.Entity.IsDynamic)
+                        {
+                            grabber.Setup(entityCollision.Entity, raycastResult.HitData.Location);
+                            grabberGraphic.IsDrawing = true;
+                            grabDistance = raycastResult.HitData.T;
+                        }
                     }
-                }
 
-            }
+                }
 #if !WINDOWS
             if (Game.GamePadInput.IsButtonDown(Buttons.RightShoulder) && grabber.IsUpdating)
 #else
-            else if (Game.MouseInput.RightButton == ButtonState.Pressed && grabber.IsUpdating)
+                else if (Game.MouseInput.RightButton == ButtonState.Pressed && grabber.IsUpdating)
 #endif
-            {
-                grabber.GoalPosition = Game.Camera.Position + Game.Camera.WorldMatrix.Forward * grabDistance;
-            }
+                {
+                    grabber.GoalPosition = Game.Camera.Position + Game.Camera.WorldMatrix.Forward * grabDistance;
+                }
 #if !WINDOWS
             if (!Game.GamePadInput.IsButtonDown(Buttons.RightShoulder) && grabber.IsUpdating)
 #else
-            else if (Game.MouseInput.RightButton == ButtonState.Released && grabber.IsUpdating)
+                else if (Game.MouseInput.RightButton == ButtonState.Released && grabber.IsUpdating)
 #endif
-            {
-                grabber.Release();
-                grabberGraphic.IsDrawing = false;
-            }
+                {
+                    grabber.Release();
+                    grabberGraphic.IsDrawing = false;
+                }
 
-            #endregion
+                #endregion
 
-            #region Control State Input
+                #region Control State Input
 
 #if !WINDOWS
             if (!vehicle.IsActive && Game.WasButtonPressed(Buttons.LeftTrigger))
@@ -184,39 +186,40 @@ namespace BEPUphysicsDemos.Demos
                     vehicle.Deactivate();
             }
 #else
-            if (!vehicle.IsActive && Game.WasKeyPressed(Keys.Space))
-            {
-                //Detonate the bomb
-                kapowMaker.Position = kapow.Position;
-                kapowMaker.Explode();
-            }
-            if (Game.WasKeyPressed(Keys.C))
-            {
-                //Toggle character perspective.
-                if (!character.IsActive)
+                if (!vehicle.IsActive && Game.WasKeyPressed(Keys.Space))
                 {
-                    vehicle.Deactivate();
-                    character.Activate();
+                    //Detonate the bomb
+                    kapowMaker.Position = kapow.Position;
+                    kapowMaker.Explode();
                 }
-                else
-                    character.Deactivate();
-            }
+                if (Game.WasKeyPressed(Keys.C))
+                {
+                    //Toggle character perspective.
+                    if (!character.IsActive)
+                    {
+                        vehicle.Deactivate();
+                        character.Activate();
+                    }
+                    else
+                        character.Deactivate();
+                }
 
 
-            if (Game.WasKeyPressed(Keys.V))
-            {
-                //Toggle vehicle perspective.
-                if (!vehicle.IsActive)
+                if (Game.WasKeyPressed(Keys.V))
                 {
-                    character.Deactivate();
-                    vehicle.Activate(Game.Camera.Position);
+                    //Toggle vehicle perspective.
+                    if (!vehicle.IsActive)
+                    {
+                        character.Deactivate();
+                        vehicle.Activate(Game.Camera.Position);
+                    }
+                    else
+                        vehicle.Deactivate();
                 }
-                else
-                    vehicle.Deactivate();
-            }
 #endif
 
-            #endregion
+                #endregion
+            }
 
             base.Update(dt); //Base.update updates the space, which needs to be done before the camera is updated.
 
