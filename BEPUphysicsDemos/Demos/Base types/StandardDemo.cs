@@ -242,7 +242,7 @@ namespace BEPUphysicsDemos.Demos
 #else
             if (Game.MouseInput.RightButton == ButtonState.Pressed)
 #endif
-                Game.UIDrawer.Draw(whitePixel, new Microsoft.Xna.Framework.Rectangle(Game.Graphics.PreferredBackBufferWidth / 2, Game.Graphics.PreferredBackBufferHeight / 2, 3, 3), Microsoft.Xna.Framework.Color.LightBlue);
+                Game.UIDrawer.Draw(whitePixel, new Rectangle((Game.GraphicsDevice.Viewport.Width / 2)-2, (Game.GraphicsDevice.Viewport.Height / 2)-2, 4, 4), Color.LightBlue);
         }
     }
 }
