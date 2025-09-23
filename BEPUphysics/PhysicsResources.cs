@@ -1,4 +1,8 @@
-﻿using BEPUphysics.BroadPhaseEntries;
+﻿﻿// [ThreadStatic] is broken in .net compact framework (Xbox 360)
+// https://www.gavpugh.com/2010/11/26/xnac-%E2%80%93-threadstatic-attribute-is-broken-on-xbox-360/
+#if !WINDOWS
+using System;
+using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.CollisionTests.Manifolds;
 using BEPUphysics.Entities;
@@ -24,7 +28,6 @@ namespace BEPUphysics
 
         public static void ResetPools()
         {
-
             SubPoolRayCastResultList = new LockingResourcePool<RawList<RayCastResult>>();
             SubPoolBroadPhaseEntryList = new LockingResourcePool<RawList<BroadPhaseEntry>>();
             SubPoolCollidableList = new LockingResourcePool<RawList<Collidable>>();
@@ -196,7 +199,6 @@ namespace BEPUphysics
             var identity = RigidTransform.Identity;
             tri.UpdateBoundingBoxForTransform(ref identity);
             return tri;
-
         }
 
         /// <summary>
@@ -236,7 +238,7 @@ namespace BEPUphysics
         {
             connection.CleanUp();
             SimulationIslandConnections.GiveBack(connection);
-
         }
     }
 }
+#endif

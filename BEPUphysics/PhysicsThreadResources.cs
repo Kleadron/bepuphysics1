@@ -1,6 +1,6 @@
-﻿// [ThreadStatic] is broken in .net compact framework (Xbox 360)
+﻿﻿// [ThreadStatic] is broken in .net compact framework (Xbox 360)
 // https://www.gavpugh.com/2010/11/26/xnac-%E2%80%93-threadstatic-attribute-is-broken-on-xbox-360/
-#if false
+#if WINDOWS
 using System;
 using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
@@ -19,7 +19,7 @@ namespace BEPUphysics
     /// <summary>
     /// Handles allocation and management of commonly used resources.
     /// </summary>
-    public static class PhysicsThreadResources
+    public static class PhysicsResources
     {
         [ThreadStatic]
         static UnsafeResourcePool<RawList<RayCastResult>> SubPoolRayCastResultList;
