@@ -6,7 +6,7 @@ My fix for this might not be as performant as the original version. Not sure how
 
 I've also gotten rid of ConversionHelper and moved the physics engine back to using the XNA math types to make it more convenient to use.
 
-I'm not a genius about physics engines, so I don't plan on maintaining this fork as a continuation of the original. I just hope someone finds this useful.
+I'm not a genius about physics engines, so I don't plan on maintaining this fork as a continuation of the original. This is mainly intended for my own use, so if anyone else finds it useful then that's a bonus.
 
 ## BEPUphysics v1
 
