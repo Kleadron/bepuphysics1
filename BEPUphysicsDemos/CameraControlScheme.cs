@@ -39,8 +39,8 @@ namespace BEPUphysicsDemos
             //Only turn if the mouse is controlled by the game.
             if (!Game.IsMouseVisible)
             {
-                Camera.Yaw((200 - Game.MouseInput.X) * .0024f);
-                Camera.Pitch((200 - Game.MouseInput.Y) * .0024f);
+                Camera.Yaw((Game.Window.ClientBounds.Width / 2 - Game.MouseInput.X) * .0024f);
+                Camera.Pitch((Game.Window.ClientBounds.Height / 2 - Game.MouseInput.Y) * .0024f);
             }
 #endif
         }

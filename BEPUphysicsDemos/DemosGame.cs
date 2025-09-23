@@ -226,10 +226,6 @@ namespace BEPUphysicsDemos
             DataTextDrawer = new TextDrawer(UIDrawer, dataFont, Color.White);
             TinyTextDrawer = new TextDrawer(UIDrawer, tinyFont, Color.White);
 
-#if WINDOWS
-            Mouse.SetPosition(200, 200); //This helps the camera stay on track even if the mouse is offset during startup.
-#endif
-
             SwitchSimulation(1);
 
         }
@@ -267,6 +263,20 @@ namespace BEPUphysicsDemos
             var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 #if WINDOWS
             PreviousMouseInput = MouseInput;
+
+            //Toggle mouse control.  The camera will look to the IsMouseVisible to determine if it should turn.
+            if (WasKeyPressed(Keys.Tab))
+            {
+                IsMouseVisible = !IsMouseVisible;
+
+                // mouse control was just engaged
+                if (!IsMouseVisible)
+                {
+                    // reset position before state is read
+                    Mouse.SetPosition(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2);
+                }
+            }
+
             MouseInput = Mouse.GetState();
 
             // don't grab the mouse if the window isn't focused
@@ -275,7 +285,7 @@ namespace BEPUphysicsDemos
 
             //Keep the mouse within the screen
             if (!IsMouseVisible)
-                Mouse.SetPosition(200, 200);
+                Mouse.SetPosition(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2);
 #endif
             PreviousGamePadInput = GamePadInput;
             for (int i = 0; i < 4; i++)
@@ -288,10 +298,6 @@ namespace BEPUphysicsDemos
             // Allows the default game to exit on Xbox 360 and Windows
             if (KeyboardInput.IsKeyDown(Keys.Escape) || GamePadInput.Buttons.Back == ButtonState.Pressed)
                 Exit();
-
-            //Toggle mouse control.  The camera will look to the IsMouseVisible to determine if it should turn.
-            if (WasKeyPressed(Keys.Tab))
-                IsMouseVisible = !IsMouseVisible;
 
      
 
