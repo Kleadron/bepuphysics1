@@ -3,7 +3,6 @@ float4x4 Projection;
 #define NUM_TEXTURES 8
 #define MAX_OBJECTS 81
 float4x3 WorldTransforms[MAX_OBJECTS];
-float TextureIndices[MAX_OBJECTS];
 
 texture Colors;
 
@@ -30,11 +29,10 @@ sampler ColorSampler = sampler_state
 //The texture coordinates aren't actually used in this shader but it makes things marginally simpler outside.  Not exactly optimized!
 struct VertexShaderInput
 {
-    float4 Position : POSITION0;
-    float3 Normal : NORMAL0;
-    float2 TextureCoordinates : TEXCOORD0;
-    float Index : TEXCOORD1;
-	float TextureIndex : TEXCOORD2;
+    half4 PositionXYZNormalX : POSITION0;
+    half2 NormalYZ : POSITION1;
+    //float2 TextureCoordinates : TEXCOORD0;
+    half2 Index : TEXCOORD0;
 };
 
 struct VertexShaderOutput
@@ -49,11 +47,15 @@ struct VertexShaderOutput
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
     VertexShaderOutput output;
-    int index = (int)round(input.Index);
-    float3 worldPosition = mul(input.Position, WorldTransforms[index]);
+    int index = input.Index.x;
+
+	float4 position = float4(input.PositionXYZNormalX.x, input.PositionXYZNormalX.y, input.PositionXYZNormalX.z, 1);
+	float3 normal = float3(input.PositionXYZNormalX.w, input.NormalYZ.x, input.NormalYZ.y);
+
+    float3 worldPosition = mul(position, WorldTransforms[index]);
     output.Position = mul(mul(float4(worldPosition, 1), View), Projection);
-    output.Normal = mul(float4(input.Normal, 0), WorldTransforms[index]);
-	output.TextureIndex = input.TextureIndex;
+    output.Normal = mul(float4(normal, 0), WorldTransforms[index]);
+	output.TextureIndex = input.Index.y;
 
     return output;
 }

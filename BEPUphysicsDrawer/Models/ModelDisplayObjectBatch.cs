@@ -3,9 +3,48 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
+using System.Runtime.InteropServices;
 
 namespace BEPUphysicsDrawer.Models
 {
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct PackedVertexPN
+    {
+        public HalfVector4 PositionXYZNormalX;
+        public HalfVector2 NormalYZ;
+
+        internal PackedVertexPN(Vector3 pos, Vector3 normal)
+        {
+            PositionXYZNormalX = new HalfVector4(pos.X, pos.Y, pos.Z, normal.X);
+            NormalYZ = new HalfVector2(normal.Y, normal.Z);
+        }
+
+        public static readonly VertexDeclaration VertexDeclaration = new VertexDeclaration(new[]
+            {
+                new VertexElement(0, VertexElementFormat.HalfVector4, VertexElementUsage.Position, 0),
+                new VertexElement(8, VertexElementFormat.HalfVector2, VertexElementUsage.Position, 1)
+            });
+    }
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct InstancedVertex
+    {
+        public short InstanceIndex;
+        public short TextureIndex;
+
+        internal InstancedVertex(int instanceIndex, int textureIndex)
+        {
+            InstanceIndex = (short)instanceIndex;
+            TextureIndex = (short)textureIndex;
+        }
+
+        public static readonly VertexDeclaration VertexDeclaration = new VertexDeclaration(new[]
+            {
+                new VertexElement(0, VertexElementFormat.Short2, VertexElementUsage.TextureCoordinate, 0)
+            });
+    }
+
     /// <summary>
     /// Manages batching of display models and their drawing.
     /// </summary>
@@ -30,7 +69,7 @@ namespace BEPUphysicsDrawer.Models
         /// <summary>
         /// List of textures associated with display objects in the batch.
         /// </summary>
-        private readonly float[] textureIndices = new float[MaximumObjectsPerBatch];
+        //private readonly float[] textureIndices = new float[MaximumObjectsPerBatch];
 
         //These lists are used to collect temporary data from display objects.
         private readonly List<VertexPositionNormalTexture> vertexList = new List<VertexPositionNormalTexture>();
@@ -52,7 +91,7 @@ namespace BEPUphysicsDrawer.Models
         int vertexCount;
         private InstancedVertex[] instancedVertices;
         private VertexBuffer vertexBuffer;
-        private VertexPositionNormalTexture[] vertices;
+        private PackedVertexPN[] vertices;
         private VertexBufferBinding[] bindings;
 
         //Has VertexBuffer, IndexBuffer, second stream for indices.
@@ -69,9 +108,9 @@ namespace BEPUphysicsDrawer.Models
             this.graphicsDevice = graphicsDevice;
             myDisplayObjectsReadOnly = new ReadOnlyCollection<ModelDisplayObject>(displayObjects);
             instancedVertices = new InstancedVertex[MaximumIndexCount];
-            vertices = new VertexPositionNormalTexture[MaximumIndexCount];
+            vertices = new PackedVertexPN[MaximumIndexCount];
             indices = new ushort[MaximumIndexCount];
-            vertexBuffer = new VertexBuffer(graphicsDevice, VertexPositionNormalTexture.VertexDeclaration, MaximumIndexCount, BufferUsage.WriteOnly);
+            vertexBuffer = new VertexBuffer(graphicsDevice, PackedVertexPN.VertexDeclaration, MaximumIndexCount, BufferUsage.WriteOnly);
             instancedBuffer = new VertexBuffer(graphicsDevice, InstancedVertex.VertexDeclaration, MaximumIndexCount, BufferUsage.WriteOnly);
             indexBuffer = new IndexBuffer(graphicsDevice, IndexElementSize.SixteenBits, MaximumIndexCount, BufferUsage.WriteOnly);
             bindings = new[] { new VertexBufferBinding(vertexBuffer), new VertexBufferBinding(instancedBuffer) };
@@ -105,15 +144,22 @@ namespace BEPUphysicsDrawer.Models
             var textureIndex = displayObject.TextureIndex;
             //OUegheogh, this could just directly write into the batch's vertex/index cache rather than going through a list and recopy.
             displayObject.GetVertexData(vertexList, indexList, this, (ushort)vertexCount, indexCount, instanceIndex);
-            vertexList.CopyTo(vertices, vertexCount);
+
+            //vertexList.CopyTo(vertices, vertexCount);
+            for (int i = 0; i < vertexList.Count; i++)
+            {
+                VertexPositionNormalTexture vertex = vertexList[i];
+                vertices[vertexCount + i] = new PackedVertexPN(vertex.Position, vertex.Normal);
+            }
+
             indexList.CopyTo(indices, indexCount);
 
             var newIndexCount = indexCount + indexList.Count;
             var newVertexCount = vertexCount + vertexList.Count;
             for (int i = vertexCount; i < newVertexCount; i++)
-                instancedVertices[i] = new InstancedVertex { InstanceIndex = instanceIndex, TextureIndex = textureIndex };
+                instancedVertices[i] = new InstancedVertex(instanceIndex, textureIndex);
 
-            vertexBuffer.SetData(sizeof(VertexPositionNormalTexture) * vertexCount, vertices, vertexCount, vertexList.Count, sizeof(VertexPositionNormalTexture));
+            vertexBuffer.SetData(sizeof(PackedVertexPN) * vertexCount, vertices, vertexCount, vertexList.Count, sizeof(PackedVertexPN));
             instancedBuffer.SetData(sizeof(InstancedVertex) * vertexCount, instancedVertices, vertexCount, vertexList.Count, sizeof(InstancedVertex));
             indexBuffer.SetData(sizeof(ushort) * indexCount, indices, indexCount, indexList.Count);
 
@@ -170,7 +216,7 @@ namespace BEPUphysicsDrawer.Models
 
             if (displayObjects.Count > 0 && batchListIndex < displayObjects.Count)
             {
-                vertexBuffer.SetData(sizeof(VertexPositionNormalTexture) * vertexCopyTarget, vertices, vertexCopyTarget, vertexCopyLength, sizeof(VertexPositionNormalTexture));
+                vertexBuffer.SetData(sizeof(PackedVertexPN) * vertexCopyTarget, vertices, vertexCopyTarget, vertexCopyLength, sizeof(PackedVertexPN));
                 instancedBuffer.SetData(sizeof(InstancedVertex) * vertexCopyTarget, instancedVertices, vertexCopyTarget, vertexCopyLength, sizeof(InstancedVertex));
                 indexBuffer.SetData(sizeof(ushort) * indexCopyTarget, indices, indexCopyTarget, indexCopyLength);
             }
@@ -197,7 +243,7 @@ namespace BEPUphysicsDrawer.Models
             {
                 displayObjects[i].Update();
                 worldTransforms[i] = displayObjects[i].WorldTransform;
-                textureIndices[i] = displayObjects[i].TextureIndex;
+                //textureIndices[i] = displayObjects[i].TextureIndex;
             }
         }
 
@@ -211,29 +257,11 @@ namespace BEPUphysicsDrawer.Models
                 graphicsDevice.SetVertexBuffers(bindings);
                 graphicsDevice.Indices = indexBuffer;
                 worldTransformsParameter.SetValue(worldTransforms);
-                textureIndicesParameter.SetValue(textureIndices);
+                //textureIndicesParameter.SetValue(textureIndices);
                 pass.Apply();
 
-                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexBuffer.VertexCount, 0, indexCount / 3);
+                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexCount, 0, indexCount / 3);
             }
-        }
-
-        internal struct InstancedVertex
-        {
-            /// <summary>
-            /// Index of the instance to which this vertex belongs.
-            /// </summary>
-            public float InstanceIndex;
-            /// <summary>
-            /// Index of the texture used by the vertex.
-            /// </summary>
-            public float TextureIndex;
-
-            public static readonly VertexDeclaration VertexDeclaration = new VertexDeclaration(new[]
-            {
-                new VertexElement(0, VertexElementFormat.Single, VertexElementUsage.TextureCoordinate, 1),
-                new VertexElement(4, VertexElementFormat.Single, VertexElementUsage.TextureCoordinate, 2)
-            });
         }
 
         bool disposed;
