@@ -17,23 +17,31 @@ namespace BEPUutilities.ResourceManagement
         /// </summary>
         public static LockingBufferPool<T> Locking { get; private set; }
 
-        // NOTE: THIS IS BROKEN ON XBOX :(
-        //[ThreadStatic]
-        //private static BufferPool<T> threadPool;
+        // [ThreadStatic] is broken in .net compact framework (Xbox 360)
+        // https://www.gavpugh.com/2010/11/26/xnac-%E2%80%93-threadstatic-attribute-is-broken-on-xbox-360/
+#if WINDOWS
+        [ThreadStatic]
+        private static BufferPool<T> threadPool;
+#endif
 
         /// <summary>
         /// Gets the pool associated with this thread.
         /// </summary>
-        public static LockingBufferPool<T> Thread { get; private set; }
-        //public static BufferPool<T> Thread
-        //{
-        //    get { return threadPool ?? (threadPool = new BufferPool<T>()); }
-        //}
+#if !WINDOWS
+        public static BufferPool<T> Thread 
+        { 
+            get { return Locking; } // just return the locking one for now
+        }
+#else
+        public static BufferPool<T> Thread
+        {
+            get { return threadPool ?? (threadPool = new BufferPool<T>()); }
+        }
+#endif
 
         static BufferPools()
         {
             Locking = new LockingBufferPool<T>();
-            Thread = Locking;
         }
     }
 }
