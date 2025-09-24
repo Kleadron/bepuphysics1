@@ -58,7 +58,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
 
         protected override void UpdateContainedPairs()
         {
-            var overlappedElements = PhysicsResources.GetCollidableList();
+            var overlappedElements = PhysicsThreadResources.GetCollidableList();
             staticGroup.Shape.CollidableTree.GetOverlaps(convexInfo.boundingBox, overlappedElements);
             for (int i = 0; i < overlappedElements.Count; i++)
             {
@@ -66,7 +66,7 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
                 TryToAdd(overlappedElements.Elements[i], CollidableB, staticCollidable != null ? staticCollidable.Material : staticGroup.Material);
             }
 
-            PhysicsResources.GiveBack(overlappedElements);
+            PhysicsThreadResources.GiveBack(overlappedElements);
 
 
         }

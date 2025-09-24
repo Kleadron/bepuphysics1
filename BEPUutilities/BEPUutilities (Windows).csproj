@@ -101,6 +101,7 @@
     <Compile Include="ResourceManagement\BufferPool.cs" />
     <Compile Include="ResourceManagement\BufferPools.cs" />
     <Compile Include="ResourceManagement\CommonResources.cs" />
+    <Compile Include="ResourceManagement\CommonThreadResources.cs" />
     <Compile Include="ResourceManagement\LockingBufferPool.cs" />
     <Compile Include="ResourceManagement\LockingResourcePool.cs" />
     <Compile Include="ResourceManagement\ResourcePool.cs" />

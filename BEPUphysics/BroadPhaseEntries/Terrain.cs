@@ -239,7 +239,7 @@ namespace BEPUphysics.BroadPhaseEntries
             hit = new RayHit();
             BoundingBox localSpaceBoundingBox;
             castShape.GetSweptLocalBoundingBox(ref startingTransform, ref worldTransform, ref sweep, out localSpaceBoundingBox);
-            var tri = PhysicsResources.GetTriangle();
+            var tri = PhysicsThreadResources.GetTriangle();
             var hitElements = new QuickList<int>(BufferPools<int>.Thread);
             if (Shape.GetOverlaps(localSpaceBoundingBox, ref hitElements))
             {
@@ -271,11 +271,11 @@ namespace BEPUphysics.BroadPhaseEntries
                     }
                 }
                 tri.MaximumRadius = 0;
-                PhysicsResources.GiveBack(tri);
+                PhysicsThreadResources.GiveBack(tri);
                 hitElements.Dispose();
                 return hit.T != float.MaxValue;
             }
-            PhysicsResources.GiveBack(tri);
+            PhysicsThreadResources.GiveBack(tri);
             hitElements.Dispose();
             return false;
         }

@@ -276,7 +276,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
         {
             rayHit = new RayHit();
             hitChild = null;
-            var hitElements = PhysicsResources.GetCompoundChildList();
+            var hitElements = PhysicsThreadResources.GetCompoundChildList();
             if (hierarchy.Tree.GetOverlaps(ray, maximumLength, hitElements))
             {
                 rayHit.T = float.MaxValue;
@@ -290,10 +290,10 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                         hitChild = hitElements.Elements[i];
                     }
                 }
-                PhysicsResources.GiveBack(hitElements);
+                PhysicsThreadResources.GiveBack(hitElements);
                 return rayHit.T != float.MaxValue;
             }
-            PhysicsResources.GiveBack(hitElements);
+            PhysicsThreadResources.GiveBack(hitElements);
             return false;
         }
 
@@ -347,7 +347,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
             hitChild = null;
             if (filter(this))
             {
-                var hitElements = PhysicsResources.GetCompoundChildList();
+                var hitElements = PhysicsThreadResources.GetCompoundChildList();
                 if (hierarchy.Tree.GetOverlaps(ray, maximumLength, hitElements))
                 {
                     rayHit.T = float.MaxValue;
@@ -360,10 +360,10 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                             hitChild = hitElements.Elements[i];
                         }
                     }
-                    PhysicsResources.GiveBack(hitElements);
+                    PhysicsThreadResources.GiveBack(hitElements);
                     return rayHit.T != float.MaxValue;
                 }
-                PhysicsResources.GiveBack(hitElements);
+                PhysicsThreadResources.GiveBack(hitElements);
             }
             return false;
         }
@@ -418,7 +418,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
             hitChild = null;
             BoundingBox boundingBox;
             castShape.GetSweptBoundingBox(ref startingTransform, ref sweep, out boundingBox);
-            var hitElements = PhysicsResources.GetCompoundChildList();
+            var hitElements = PhysicsThreadResources.GetCompoundChildList();
             if (hierarchy.Tree.GetOverlaps(boundingBox, hitElements))
             {
                 hit.T = float.MaxValue;
@@ -432,10 +432,10 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                         hitChild = hitElements.Elements[i];
                     }
                 }
-                PhysicsResources.GiveBack(hitElements);
+                PhysicsThreadResources.GiveBack(hitElements);
                 return hit.T != float.MaxValue;
             }
-            PhysicsResources.GiveBack(hitElements);
+            PhysicsThreadResources.GiveBack(hitElements);
             return false;
         }
 
@@ -495,7 +495,7 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                 return false;
             BoundingBox boundingBox;
             castShape.GetSweptBoundingBox(ref startingTransform, ref sweep, out boundingBox);
-            var hitElements = PhysicsResources.GetCompoundChildList();
+            var hitElements = PhysicsThreadResources.GetCompoundChildList();
             if (hierarchy.Tree.GetOverlaps(boundingBox, hitElements))
             {
                 hit.T = float.MaxValue;
@@ -509,10 +509,10 @@ namespace BEPUphysics.BroadPhaseEntries.MobileCollidables
                         hitChild = hitElements.Elements[i];
                     }
                 }
-                PhysicsResources.GiveBack(hitElements);
+                PhysicsThreadResources.GiveBack(hitElements);
                 return hit.T != float.MaxValue;
             }
-            PhysicsResources.GiveBack(hitElements);
+            PhysicsThreadResources.GiveBack(hitElements);
             return false;
         }
 

@@ -247,7 +247,7 @@ namespace BEPUphysics.Constraints
         {
             //First verify that something really changed.
             bool entitiesChanged = false;
-            RawList<Entity> newInvolvedEntities = PhysicsResources.GetEntityRawList();
+            RawList<Entity> newInvolvedEntities = PhysicsThreadResources.GetEntityRawList();
             CollectInvolvedEntities(newInvolvedEntities);
             if (newInvolvedEntities.Count == involvedEntities.Count)
             {
@@ -298,7 +298,7 @@ namespace BEPUphysics.Constraints
                     }
                 }
             }
-            PhysicsResources.GiveBack(newInvolvedEntities);
+            PhysicsThreadResources.GiveBack(newInvolvedEntities);
         }
 
         /// <summary>

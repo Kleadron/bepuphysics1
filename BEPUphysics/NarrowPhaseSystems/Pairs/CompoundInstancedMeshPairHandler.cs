@@ -59,14 +59,14 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
         {
             //Could go other way; get triangles in mesh that overlap the compound.
             //Could be faster sometimes depending on the way it's set up.
-            var overlappedElements = PhysicsResources.GetCompoundChildList(); 
+            var overlappedElements = PhysicsThreadResources.GetCompoundChildList(); 
             compoundInfo.hierarchy.Tree.GetOverlaps(mesh.boundingBox, overlappedElements);
             for (int i = 0; i < overlappedElements.Count; i++)
             {
                 TryToAdd(overlappedElements.Elements[i].CollisionInformation, mesh, overlappedElements.Elements[i].Material, mesh.material);
             }
 
-            PhysicsResources.GiveBack(overlappedElements);
+            PhysicsThreadResources.GiveBack(overlappedElements);
 
 
 

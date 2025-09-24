@@ -63,14 +63,14 @@ namespace BEPUphysics.NarrowPhaseSystems.Pairs
             //TODO: Static triangle meshes have a worldspace hierarchy that could be more efficiently traversed with a tree vs tree test.
             //This is just a lot simpler to manage in the short term.
 
-            var overlappedElements = PhysicsResources.GetCompoundChildList();
+            var overlappedElements = PhysicsThreadResources.GetCompoundChildList();
             compoundInfo.hierarchy.Tree.GetOverlaps(mesh.boundingBox, overlappedElements);
             for (int i = 0; i < overlappedElements.Count; i++)
             {
                 TryToAdd(overlappedElements.Elements[i].CollisionInformation, mesh, overlappedElements.Elements[i].Material, mesh.material);
             }
 
-            PhysicsResources.GiveBack(overlappedElements);
+            PhysicsThreadResources.GiveBack(overlappedElements);
 
         }
 

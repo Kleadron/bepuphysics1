@@ -126,7 +126,7 @@ namespace BEPUphysics.CollisionTests.Manifolds
             var candidatesToAdd = new QuickList<ContactData>(BufferPools<ContactData>.Thread, bufferPoolSizePower);
 
             //A single triangle shape will be reused for all operations. It's pulled from a thread local pool to avoid holding a TriangleShape around for every single contact manifold or pair tester.
-            var localTriangleShape = PhysicsResources.GetTriangle();
+            var localTriangleShape = PhysicsThreadResources.GetTriangle();
 
             //Precompute the transform to take triangles from their native local space to the convex's local space.
             RigidTransform inverseConvexWorldTransform;
@@ -428,8 +428,8 @@ namespace BEPUphysics.CollisionTests.Manifolds
                 }
             }
 
-
-            PhysicsResources.GiveBack(localTriangleShape);
+            
+            PhysicsThreadResources.GiveBack(localTriangleShape);
             candidatesToAdd.Dispose();
 
         }
