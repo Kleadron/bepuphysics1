@@ -1,7 +1,7 @@
 float4x4 View;
 float4x4 Projection;
 #define NUM_TEXTURES 8
-#define MAX_OBJECTS 81
+#define MAX_OBJECTS 82
 float4x3 WorldTransforms[MAX_OBJECTS];
 
 texture Colors;
@@ -26,12 +26,10 @@ sampler ColorSampler = sampler_state
 };
 
 
-//The texture coordinates aren't actually used in this shader but it makes things marginally simpler outside.  Not exactly optimized!
 struct VertexShaderInput
 {
     half4 PositionXYZNormalX : POSITION0;
     half2 NormalYZ : POSITION1;
-    //float2 TextureCoordinates : TEXCOORD0;
     half2 Index : TEXCOORD0;
 };
 

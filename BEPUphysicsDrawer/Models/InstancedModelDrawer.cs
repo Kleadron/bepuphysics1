@@ -21,7 +21,6 @@ namespace BEPUphysicsDrawer.Models
         private readonly Effect instancingEffect;
         private readonly EffectParameter projectionParameter;
 
-        private readonly EffectParameter textureIndicesParameter;
         private readonly EffectParameter viewParameter;
         private readonly EffectParameter worldTransformsParameter;
 
@@ -31,7 +30,6 @@ namespace BEPUphysicsDrawer.Models
             instancingEffect = game.Content.Load<Effect>("InstancedEffect");
 
             worldTransformsParameter = instancingEffect.Parameters["WorldTransforms"];
-            textureIndicesParameter = instancingEffect.Parameters["TextureIndices"];
             viewParameter = instancingEffect.Parameters["View"];
             projectionParameter = instancingEffect.Parameters["Projection"];
 
@@ -111,7 +109,7 @@ namespace BEPUphysicsDrawer.Models
             {
                 foreach (ModelDisplayObjectBatch batch in batches)
                 {
-                    batch.Draw(instancingEffect, worldTransformsParameter, textureIndicesParameter, instancingEffect.CurrentTechnique.Passes[i]);
+                    batch.Draw(instancingEffect, worldTransformsParameter, instancingEffect.CurrentTechnique.Passes[i]);
                 }
             }
         }

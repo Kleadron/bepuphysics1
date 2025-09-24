@@ -53,23 +53,19 @@ namespace BEPUphysicsDrawer.Models
         /// <summary>
         /// Maximum number of display objects that can be lumped into a single display batch.
         /// </summary>
-        public const int MaximumObjectsPerBatch = 81;
+        public const int MaximumObjectsPerBatch = 82;
 
         /// <summary>
         /// Maximum number of primitives that can be batched together in a single draw call.
         /// </summary>
         public const int MaximumPrimitiveCountPerBatch = 65536;
+        public const int MaximumVertexCount = MaximumPrimitiveCountPerBatch * 2;
         public const int MaximumIndexCount = MaximumPrimitiveCountPerBatch * 3;
 
         private readonly GraphicsDevice graphicsDevice;
         private readonly List<ushort> indexList = new List<ushort>();
         private readonly List<ModelDisplayObject> displayObjects = new List<ModelDisplayObject>();
         private readonly ReadOnlyCollection<ModelDisplayObject> myDisplayObjectsReadOnly;
-
-        /// <summary>
-        /// List of textures associated with display objects in the batch.
-        /// </summary>
-        //private readonly float[] textureIndices = new float[MaximumObjectsPerBatch];
 
         //These lists are used to collect temporary data from display objects.
         private readonly List<VertexPositionNormalTexture> vertexList = new List<VertexPositionNormalTexture>();
@@ -107,11 +103,11 @@ namespace BEPUphysicsDrawer.Models
         {
             this.graphicsDevice = graphicsDevice;
             myDisplayObjectsReadOnly = new ReadOnlyCollection<ModelDisplayObject>(displayObjects);
-            instancedVertices = new InstancedVertex[MaximumIndexCount];
-            vertices = new PackedVertexPN[MaximumIndexCount];
+            instancedVertices = new InstancedVertex[MaximumVertexCount];
+            vertices = new PackedVertexPN[MaximumVertexCount];
             indices = new ushort[MaximumIndexCount];
-            vertexBuffer = new VertexBuffer(graphicsDevice, PackedVertexPN.VertexDeclaration, MaximumIndexCount, BufferUsage.WriteOnly);
-            instancedBuffer = new VertexBuffer(graphicsDevice, InstancedVertex.VertexDeclaration, MaximumIndexCount, BufferUsage.WriteOnly);
+            vertexBuffer = new VertexBuffer(graphicsDevice, PackedVertexPN.VertexDeclaration, MaximumVertexCount, BufferUsage.WriteOnly);
+            instancedBuffer = new VertexBuffer(graphicsDevice, InstancedVertex.VertexDeclaration, MaximumVertexCount, BufferUsage.WriteOnly);
             indexBuffer = new IndexBuffer(graphicsDevice, IndexElementSize.SixteenBits, MaximumIndexCount, BufferUsage.WriteOnly);
             bindings = new[] { new VertexBufferBinding(vertexBuffer), new VertexBufferBinding(instancedBuffer) };
         }
@@ -145,7 +141,7 @@ namespace BEPUphysicsDrawer.Models
             //OUegheogh, this could just directly write into the batch's vertex/index cache rather than going through a list and recopy.
             displayObject.GetVertexData(vertexList, indexList, this, (ushort)vertexCount, indexCount, instanceIndex);
 
-            //vertexList.CopyTo(vertices, vertexCount);
+            // compress vertices
             for (int i = 0; i < vertexList.Count; i++)
             {
                 VertexPositionNormalTexture vertex = vertexList[i];
@@ -243,21 +239,19 @@ namespace BEPUphysicsDrawer.Models
             {
                 displayObjects[i].Update();
                 worldTransforms[i] = displayObjects[i].WorldTransform;
-                //textureIndices[i] = displayObjects[i].TextureIndex;
             }
         }
 
         /// <summary>
         /// Draws the models managed by the batch.
         /// </summary>
-        public void Draw(Effect effect, EffectParameter worldTransformsParameter, EffectParameter textureIndicesParameter, EffectPass pass)
+        public void Draw(Effect effect, EffectParameter worldTransformsParameter, EffectPass pass)
         {
             if (vertexCount > 0)
             {
                 graphicsDevice.SetVertexBuffers(bindings);
                 graphicsDevice.Indices = indexBuffer;
                 worldTransformsParameter.SetValue(worldTransforms);
-                //textureIndicesParameter.SetValue(textureIndices);
                 pass.Apply();
 
                 graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexCount, 0, indexCount / 3);
